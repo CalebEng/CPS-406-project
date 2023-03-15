@@ -17,4 +17,4 @@ If you ever want grab the new changes from the GitHub repository, simply use `gi
 # IMPORTANT NOTES
 
 - Please use the `dev` branch to work on unstable code that is still in development, and then later merge to the `main` branch when it is ready to be used. 
-    - make sure to use `git checkout dev` & `git push -u dev` when working on code in the dev branch.
+    - make sure to use `git checkout dev` & `git push -u origin dev` when working on code in the dev branch.
