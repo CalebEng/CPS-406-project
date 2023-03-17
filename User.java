@@ -81,7 +81,7 @@ public class User {
      *      id of the account
      * @param passwordI
      *      password for the account associated with said id
-     * @returns true if the user id and password match and flase otherwise
+     * @returns true if the user id and password match and false otherwise
      */
     public boolean login(int idI,String passwordI){
         if((idI == this.id)&&(passwordI == this.password)){

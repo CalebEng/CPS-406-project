@@ -7,6 +7,7 @@
  */
 
  import java.util.ArrayList;
+import java.util.Date;
 
 public class Shopper extends User{
     private String address;
@@ -16,9 +17,9 @@ public class Shopper extends User{
 
     //orders, currentOrders, and PastOrders
     //Possibly change shopperOrders from Orders to an arrayList containing all the orders
-    private Orders shopperOrders;
-    private CurrentOrders orderList;
-    private PastOrders pastOrderList;
+    private ArrayList<Orders> shopperOrders;
+    private ArrayList<CurrentOrders> orderList;
+    private ArrayList<PastOrders> pastOrderList;
 
     private Cart shopperCart;
     private Wishlist wishlist;
@@ -114,6 +115,35 @@ public class Shopper extends User{
     public void addNumber(String number){
         this.phoneNuber = number;
     }
+
+    /**
+     * method to add items to the user cart
+     * @param item 
+     *      item to be added to the cart
+     * sends the item to the cart class to add
+     * @see Cart           
+     */
+    public void addToCart(Shoe itemI){
+        this.shopperCart.addItem(itemI);
+    }
+
+
+    /**
+     * method to add items to the wishlist
+     * @param itemI
+     *      item to be added to the user wishlist
+     * sends the item to the wishlist class
+     * @see Wishlist
+     */
+    public void addToWishlist(Shoe itemI){
+        this.wishlist.addItem(itemI);
+    }
+
+    public void createOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
+        
+
+    }
+
 
 
 
