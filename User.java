@@ -15,6 +15,8 @@ public class User {
     private String password;
     private String type;
 
+    private boolean loggedIn;
+
 
     /**
      * Class constructor
@@ -37,6 +39,7 @@ public class User {
         this.email = emailI;
         this.password = passwordI;
         this.type = typeI;
+        this.loggedIn = false;
     }
 
 
@@ -74,18 +77,26 @@ public class User {
     //other class methods:
     /**
      * method for the user to login to their account
-     * @param
+     * @param idI
+     *      id of the account
+     * @param passwordI
+     *      password for the account associated with said id
+     * @returns true if the user id and password match and flase otherwise
      */
-    public void login(){
-
+    public boolean login(int idI,String passwordI){
+        if((idI == this.id)&&(passwordI == this.password)){
+            this.loggedIn = true;
+            return true;
+        }
+        else return false;
     }
 
     /**
      * method for user to logout of thier account
-     * @param
+     * sets the loggedIn varaible to false
      */
     public void logout(){
-
+        this.loggedIn = false;
     }
 
     /**
@@ -98,10 +109,10 @@ public class User {
 
     /**
      * method to check if someone is logged in
-     * @param
+     * @returns true if the use is logged in and false otherwise
      */
-    public void isLoggedIn(){
-        
+    public boolean isLoggedIn(){
+        return this.loggedIn;
     }
 
 
