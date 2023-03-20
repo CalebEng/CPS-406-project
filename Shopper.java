@@ -124,7 +124,7 @@ public class Shopper extends User{
      * @see Cart           
      */
     public void addToCart(Shoe itemI){
-        this.shopperCart.addItem(itemI);
+        this.shopperCart.add(itemI);
     }
 
 
@@ -136,14 +136,38 @@ public class Shopper extends User{
      * @see Wishlist
      */
     public void addToWishlist(Shoe itemI){
-        this.wishlist.addItem(itemI);
+        this.wishlist.add(itemI);
     }
 
-    public void createOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
-        
+    /**
+     * creates a new order and stores in the the user variable shopper orders
+     * @param orderIdI
+     * @param status
+     * @param total
+     * @param orderDate
+     * @param estimatedDate
+     * 
+     * also sends the orders class a shopper cart item holding all of the shoes the user wishes to buy
+     * @see Orders
+     */
+    public void placeOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
+        shopperOrders.add(new Orders(orderIdI,status,total,orderDate,estimatedDate,this.shopperCart));
 
     }
 
+    /**
+     * deletes an order from the users orderlist
+     * @param orderID
+     *      the order id the user wishes to delete/cancel
+     */
+    public void cancelOrder(int orderID){
+        for(int i =0; i<this.shopperOrders.size();i++){
+            if(this.shopperOrders.get(i).getOID() == orderID){
+                this.shopperOrders.remove(i);
+                return;
+            }
+        }
+    }
 
 
 

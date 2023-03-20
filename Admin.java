@@ -5,7 +5,7 @@
  * Admin class class:
  * holds all the information about an Admin
  */
-
+import java.util.ArrayList;
 public class Admin extends User{
 
     /**
@@ -53,10 +53,12 @@ public class Admin extends User{
 
     /**
      * shows the product backlog for a product
-     * @param something
-     * @returns placeholder
+     * @param soldFrom
+     *      the seller in which the product is being sold from
+     * @returns the product backlog from the seller
      */
-    public void viewProductBacklog(){
+    public ArrayList<Orders> viewProductBacklog(Seller soldFrom){   
+        return soldFrom.viewProductBacklog();
 
     }
     
