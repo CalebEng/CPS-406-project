@@ -121,5 +121,12 @@ public class User {
     }
 
 
+    /**
+     * tostring for testing
+     * @returns the information about the user class
+     */
+    public String toString(){
+        return "Acc name: "+this.getName()+"\nAcc ID: "+this.getId()+"\nAcc email: "+this.getEmail()+"\nAcc password: "+this.getPassword()+"\nAcc type: "+this.getType();
+    }
 
 }

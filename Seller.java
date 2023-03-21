@@ -61,11 +61,13 @@ public class Seller extends User{
    /**
     * returns a shoe for the user to view later
     * @param toView
-    *    shoe to look for
+    *    the shoe to look for
     * @return shoe to be viewed
+    * @see Shoe
+    *unsure how this will work
     */
    public Shoe viewShoe(Shoe toView){
-         return;
+         return ;
    }
    /**
     * altering the description for the seller
@@ -76,6 +78,13 @@ public class Seller extends User{
       this.description = descriptionI;
    }
 
+   /**
+    * getter for the seller description
+    * @return description of the seller
+    */
+   public String getDescription(){
+      return this.description;
+   }
    /**
     * adds new stock to the shoes in shoeList
    * @param newStock
@@ -123,4 +132,13 @@ public class Seller extends User{
       return this.orderlist;
    }
 
+
+   /**
+    * To string method for the seller class
+    * @returns seller information
+    */
+   public String toString(){
+      return "Acc name: "+this.getName()+"\nAcc ID: "+this.getId()+"\nAcc email: "+this.getEmail()+"\nAcc password: "+this.getPassword()+"\nAcc type: "+this.getType()+"\nDescription: "+this.getDescription()
+      +"\nShoe list: "+this.shoeList+"\nOrders list: "+this.orderlist+"\nShipped Orders: " +this.shippedOrdersList ;
+   }
 }

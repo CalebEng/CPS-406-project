@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Shopper extends User{
     private String address;
-    private String phoneNuber;
+    private String phoneNumber;
     private ArrayList<String> paymentMethod;
     private ArrayList<Review> shoppReviews;
 
@@ -48,7 +48,7 @@ public class Shopper extends User{
         super(idI, nameI, email, password,"Shopper");
         
         this.address = addressI;
-        this.phoneNuber = phoneNumberI;
+        this.phoneNumber = phoneNumberI;
         this.paymentMethod = new ArrayList<String>();
         this.shoppReviews = new ArrayList<Review>();
 
@@ -92,11 +92,11 @@ public class Shopper extends User{
 
     //getters:
     public String getaddress(){
-        return address;
+        return this.address;
     }
 
     public String getphoneNumber(){
-        return phoneNuber;
+        return this.phoneNumber;
     }
 
     //setters:
@@ -113,7 +113,7 @@ public class Shopper extends User{
      *      user phone number to be changed/added?
      */
     public void addNumber(String number){
-        this.phoneNuber = number;
+        this.phoneNumber = number;
     }
 
     /**
@@ -170,7 +170,15 @@ public class Shopper extends User{
     }
 
 
-
+    /**
+     * to string for the shopper class
+     * @returns the shopper information 
+     */
+    public String toString(){
+        return "Acc name: "+this.getName()+"\nAcc ID: "+this.getId()+"\nAcc email: "+this.getEmail()+"\nAcc password: "+this.getPassword()+"\nAcc type: "+this.getType()+"\nPhone number: "+this.getphoneNumber()
+        +"\nAddress: "+this.getaddress()+"\nShopping cart: "+this.shopperCart+"\nWishlist: "+this.wishlist+"\nPayment methods: "+this.paymentMethod+"\nOrderList: "+this.orderList+"\nPast orders: "+this.pastOrderList
+        +"Shopper orders: "+this.shopperOrders+"\nReviews: "+this.shoppReviews;
+    }
 
     
 
