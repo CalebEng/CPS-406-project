@@ -11,6 +11,7 @@
 public class User {
     private int id;
     private boolean hasAccount;
+    private String name;
     private String email;
     private String password;
     private String type;
@@ -40,6 +41,7 @@ public class User {
         this.password = passwordI;
         this.type = typeI;
         this.loggedIn = false;
+        this.name = nameI;
     }
 
 
@@ -58,6 +60,9 @@ public class User {
     }
     public String getType(){
         return type;
+    }
+    public String getName(){
+        return name;
     }
 
     //setters:

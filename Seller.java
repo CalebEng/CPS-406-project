@@ -44,6 +44,11 @@ public class Seller extends User{
       this.shoeList.add(newShoe);
    }
 
+   /**
+    * removes a shoe from the seller list
+    * @param remShoe
+    *       Shoe to be removed
+    */
    public void removeShoe(Shoe remShoe){
       for(int i=0;i<this.shoeList.size();i++){
          if(this.shoeList.get(i).equals(remShoe)){
@@ -51,6 +56,16 @@ public class Seller extends User{
                return;
          }
       }
+   }
+
+   /**
+    * returns a shoe for the user to view later
+    * @param toView
+    *    shoe to look for
+    * @return shoe to be viewed
+    */
+   public Shoe viewShoe(Shoe toView){
+         return;
    }
    /**
     * altering the description for the seller
