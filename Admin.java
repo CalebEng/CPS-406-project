@@ -23,8 +23,8 @@ public class Admin extends User{
      *      admin password
      * @see User
      */
-    public Admin(int idI, String nameI, String emailI, String passwordI) {
-        super(idI, nameI, emailI, passwordI, "Admin");
+    public Admin(String nameI, String emailI, String passwordI) {
+        super(nameI, emailI, passwordI, "Admin");
     }
 
     /**

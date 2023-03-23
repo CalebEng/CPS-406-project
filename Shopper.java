@@ -43,9 +43,9 @@ public class Shopper extends User{
      *      user email
      * @see User
      */
-    public Shopper(String nameI, String addressI, String phoneNumberI, int idI, String password, String email){
+    public Shopper(String nameI, String addressI, String phoneNumberI, String password, String email){
         
-        super(idI, nameI, email, password,"Shopper");
+        super(nameI, email, password,"Shopper");
         
         this.address = addressI;
         this.phoneNumber = phoneNumberI;
@@ -75,9 +75,9 @@ public class Shopper extends User{
      *      user email
      * @see User
      */
-    public Shopper(String nameI, String addressI, int idI, String password, String email){
+    public Shopper(String nameI, String addressI, String password, String email){
     
-        super(idI, nameI, email, password,"Shopper");
+        super(nameI, email, password,"Shopper");
 
         this.address = addressI;
         this.phoneNuber = "";

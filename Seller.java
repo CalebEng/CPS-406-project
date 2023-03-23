@@ -30,8 +30,8 @@ public class Seller extends User{
    *     seller account password
    *@see User
    */
-   public Seller(int idI, String nameI, String emailI, String passwordI,String descriptionI){
-      super(idI, nameI, emailI, passwordI, "Seller");
+   public Seller( String nameI, String emailI, String passwordI,String descriptionI){
+      super(nameI, emailI, passwordI, "Seller");
       this.description = descriptionI;
    }
 

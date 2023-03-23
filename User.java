@@ -7,8 +7,10 @@
  *  ^ Seller
  *  ^ Admin
  */
+import java.util.Random;
 
 public class User {
+    Random random = new Random();
     private int id;
     private boolean hasAccount;
     private String name;
@@ -35,8 +37,8 @@ public class User {
      * @see Shopper
      * @see Admin
      */
-    public User(int idI, String nameI, String emailI, String passwordI, String typeI){
-        this.id = idI;
+    public User(String nameI, String emailI, String passwordI, String typeI){
+        this.id = random.nextInt(100);
         this.email = emailI;
         this.password = passwordI;
         this.type = typeI;
