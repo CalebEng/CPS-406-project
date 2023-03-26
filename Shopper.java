@@ -80,7 +80,7 @@ public class Shopper extends User{
         super(nameI, email, password,"Shopper");
 
         this.address = addressI;
-        this.phoneNuber = "";
+        this.phoneNumber = "";
         this.paymentMethod = new ArrayList<String>();
         this.shoppReviews = new ArrayList<Review>();
 
@@ -127,6 +127,21 @@ public class Shopper extends User{
         this.shopperCart.add(itemI);
     }
 
+    /**
+     * removes an item from the user cart
+     * @param itemI
+     *      id of the item to be removed from the cart
+     * @returns true if the item was removed from the cart and false otherwise
+     */
+    public boolean removeFromCart(int itemI){
+        for(int i =0;i<this.shopperCart.size();i++){
+            if(this.shopperCart.get(i).getId()==itemI){
+                this.shopperCart.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * method to add items to the wishlist
@@ -137,6 +152,22 @@ public class Shopper extends User{
      */
     public void addToWishlist(Shoe itemI){
         this.wishlist.add(itemI);
+    }
+
+    /**
+     * removes an item from the users wishlist
+     * @param itemI
+     *      id of the item to be removed
+     * @return true if the item was removed from the wishlist and false otherwise
+     */
+    public boolean removeFromWishlist(int itemI){
+        for(int i =0;i<this.wishlist.size();i++){
+            if(this.wishlist.get(i).getId()==itemI){
+                this.wishlist.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -159,14 +190,16 @@ public class Shopper extends User{
      * deletes an order from the users orderlist
      * @param orderID
      *      the order id the user wishes to delete/cancel
+     * @returns true if the order was found and canceled, false otherwise
      */
-    public void cancelOrder(int orderID){
+    public boolean cancelOrder(int orderID){
         for(int i =0; i<this.shopperOrders.size();i++){
             if(this.shopperOrders.get(i).getOID() == orderID){
                 this.shopperOrders.remove(i);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
 

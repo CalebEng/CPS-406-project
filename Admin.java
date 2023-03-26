@@ -45,10 +45,11 @@ public class Admin extends User{
      *      The shoe to be removed
      * @param solFrom 
      *      The seller the shoe should be removed from
+     * @returns the result of the seller class version of this function
      * @see Seller
      */
-    public void removeShoe(Shoe remShoe,Seller soldFrom){
-        soldFrom.removeShoe(remShoe);
+    public boolean removeShoe(Shoe remShoe,Seller soldFrom){
+        return soldFrom.removeShoe(remShoe);
     }
 
     /**

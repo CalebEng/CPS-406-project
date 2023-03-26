@@ -48,14 +48,16 @@ public class Seller extends User{
     * removes a shoe from the seller list
     * @param remShoe
     *       Shoe to be removed
+    *@returns true if the shoe was removed and false otherwise
     */
-   public void removeShoe(Shoe remShoe){
+   public boolean removeShoe(Shoe remShoe){
       for(int i=0;i<this.shoeList.size();i++){
          if(this.shoeList.get(i).equals(remShoe)){
                this.shoeList.remove(i);
-               return;
+               return true;
          }
       }
+      return false;
    }
 
    /**
