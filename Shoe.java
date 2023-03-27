@@ -1,3 +1,10 @@
+/*
+ * Yong Tan
+ * 3/23/2023
+ * CPS-406
+ * Shoe class:
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 
