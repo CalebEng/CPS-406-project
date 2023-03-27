@@ -1,0 +1,61 @@
+/*
+ * Rahaf Hussain
+ * 26/03/2023
+ * CPS406
+ * Review class which holds all the information about a product review
+*/
+
+public class Review {
+    private User reviewer;
+    private double rating;
+    private String comment;
+
+    /**
+     * Class constructor
+     * @param reviewer
+     *      the user leaving the review
+     * @param rating
+     *      the rating that the user has given a product
+     * @param comment
+     *      the comment that the user has left on a product
+    */
+    public Review(User reviewer, double rating, String comment){
+        this.reviewer = reviewer;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    // Getters
+    public double viewRating(){
+        return rating;
+    }
+    public String viewReview(){
+        return comment;
+    }
+
+    // Setters
+    public void giveRating(double rating){
+        this.rating = rating;
+    }
+    public void writeReview(String comment){
+        this.comment = comment;
+    }
+
+    // Other class methods:
+    /**
+     * "Deletes" a review by removing all its information
+    */
+    public void deleteReview(){
+        this.reviewer = null;
+        this.rating = null;
+        this.comment = null;
+    }
+
+    /**
+     * tostring for testing
+     * @returns information about the review class
+    */
+    public String toString(){
+        return "Username: " + reviewer.getName() + "\nRating: " + this.rating + "\nComment: " + this.comment;
+    }
+}
