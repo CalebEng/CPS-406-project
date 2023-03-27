@@ -76,6 +76,10 @@ public class Seller extends User{
       return null;
    }
 
+   public ArrayList<Shoe> getShoeList(){
+      return this.shoeList;
+   }
+
    /**
     * altering the description for the seller
    * @param descriptionI
@@ -139,12 +143,18 @@ public class Seller extends User{
 
    /**
     * sends back the orderlist that has not been shipped
-    * @param soldFrom
-    *       the seller in which the prodcut is sold from
     * @returns orderlist
     */
    public ArrayList<Order> viewProductBacklog(){
       return this.orderlist;
+   }
+
+   /**
+    * sends back the orderlist that has been shipped
+    * @return shippedOrdersList
+    */
+   public ArrayList<Order> viewShippedOrders(){
+      return this.shippedOrdersList;
    }
 
 

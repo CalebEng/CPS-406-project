@@ -99,6 +99,34 @@ public class Shopper extends User{
         return this.phoneNumber;
     }
 
+    public Cart getCart(){
+        return this.shopperCart;
+    }
+
+    public Wishlist getWishlist(){
+        return this.wishlist;
+    }
+
+    public ArrayList<String> getPayments(){
+        return this.paymentMethod;
+    }
+
+    public ArrayList<CurrentOrders> getOrderList(){
+        return this.orderList;
+    }
+
+    public ArrayList<Order> getOrder(){
+        return this.shopperOrders;
+    }
+
+    public ArrayList<PastOrders> getPastOrders(){
+        return this.pastOrderList;
+    }
+
+    public ArrayList<Review> getReviews(){
+        return this.shoppReviews;
+    }
+
     //setters:
     public void setAddress(String addressI){
         this.address = addressI;
