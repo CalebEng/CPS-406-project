@@ -8,7 +8,7 @@ and number of orders placed.
 
 import java.util.ArrayList;
 
-public class CurrentOrders extends Orders {
+public class CurrentOrders extends Order {
     private double totalSpent; // total amount spent on current orders
     private int totalOrders; // total number of current orders
     private ArrayList<Order> currentOrderedItems; // list of all current orders

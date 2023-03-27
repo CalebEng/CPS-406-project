@@ -58,7 +58,7 @@ public class Admin extends User{
      *      the seller in which the product is being sold from
      * @returns the product backlog from the seller
      */
-    public ArrayList<Orders> viewProductBacklog(Seller soldFrom){   
+    public ArrayList<Order> viewProductBacklog(Seller soldFrom){   
         return soldFrom.viewProductBacklog();
 
     }

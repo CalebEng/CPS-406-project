@@ -17,7 +17,7 @@ public class Shopper extends User{
 
     //orders, currentOrders, and PastOrders
     //Possibly change shopperOrders from Orders to an arrayList containing all the orders
-    private ArrayList<Orders> shopperOrders;
+    private ArrayList<Order> shopperOrders;
     private ArrayList<CurrentOrders> orderList;
     private ArrayList<PastOrders> pastOrderList;
 
@@ -54,7 +54,7 @@ public class Shopper extends User{
 
         //cart and whishlist to be implemented
         this.shopperCart = new Cart();
-        this.wishlist = new Wishlist();
+        this.wishlist = new Wishlist(true);
     }
     
     /**
@@ -86,7 +86,7 @@ public class Shopper extends User{
 
         //cart and whishlist to be implemented
         this.shopperCart = new Cart();
-        this.wishlist = new Wishlist();
+        this.wishlist = new Wishlist(true);
     }
 
 
@@ -120,11 +120,13 @@ public class Shopper extends User{
      * method to add items to the user cart
      * @param item 
      *      item to be added to the cart
+     * @param count
+     *      how many of said item to be added
      * sends the item to the cart class to add
      * @see Cart           
      */
-    public void addToCart(Shoe itemI){
-        this.shopperCart.add(itemI);
+    public void addToCart(Shoe itemI, int count){
+        this.shopperCart.addItem(itemI,count);
     }
 
     /**
@@ -147,11 +149,13 @@ public class Shopper extends User{
      * method to add items to the wishlist
      * @param itemI
      *      item to be added to the user wishlist
+     * @param count 
+     *      how much of the item to add to the wishlist
      * sends the item to the wishlist class
      * @see Wishlist
      */
-    public void addToWishlist(Shoe itemI){
-        this.wishlist.add(itemI);
+    public void addToWishlist(Shoe itemI,int count){
+        this.wishlist.addItem(itemI,count);
     }
 
     /**
@@ -182,7 +186,7 @@ public class Shopper extends User{
      * @see Orders
      */
     public void placeOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
-        shopperOrders.add(new Orders(orderIdI,status,total,orderDate,estimatedDate,this.shopperCart));
+        shopperOrders.add(new Order(this.shopperCart));
 
     }
 
@@ -194,7 +198,7 @@ public class Shopper extends User{
      */
     public boolean cancelOrder(int orderID){
         for(int i =0; i<this.shopperOrders.size();i++){
-            if(this.shopperOrders.get(i).getOID() == orderID){
+            if(this.shopperOrders.get(i).getOrderId() == orderID){
                 this.shopperOrders.remove(i);
                 return true;
             }

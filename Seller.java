@@ -12,8 +12,8 @@ public class Seller extends User{
    private ArrayList<Shoe> shoeList;
    private String description;
 
-   private ArrayList<Orders> orderlist;
-   private ArrayList<Orders> shippedOrdersList;
+   private ArrayList<Order> orderlist;
+   private ArrayList<Order> shippedOrdersList;
    
    /**
     *Construcor for the seller class
@@ -63,14 +63,19 @@ public class Seller extends User{
    /**
     * returns a shoe for the user to view later
     * @param toView
-    *    the shoe to look for
-    * @return shoe to be viewed
+    *    id of the shoe to look for
+    * @return shoe to be viewed or null if not found
     * @see Shoe
-    *unsure how this will work
     */
-   public Shoe viewShoe(Shoe toView){
-         return ;
+   public Shoe viewShoe(int toView){
+      for(int i =0;i<this.shoeList.size();i++){
+         if(this.shoeList.get(i).getId()== toView){
+            return this.shoeList.get(i);
+         }
+      }
+      return null;
    }
+
    /**
     * altering the description for the seller
    * @param descriptionI
@@ -93,8 +98,12 @@ public class Seller extends User{
    *     the number to increase the stock by
    * @see Shoe
    */
-   public void addStock(int newStock){
-      this.shoeList.addMoreStock(newStock);
+   public void addStock(int newStock,int id){
+      for(int i =0;i< this.shoeList.size();i++){
+         if(this.shoeList.get(i).getId() == id){
+            this.shoeList.get(i).addStock(newStock);
+         }
+      }
    }
 
    /**
@@ -103,8 +112,12 @@ public class Seller extends User{
    *     the number to decrease stock by
    * @see Shoe
    */
-   public void removeStock(int number){
-      this.shoeList.remStock(number);
+   public void removeStock(int number,int id){
+      for(int i =0;i< this.shoeList.size();i++){
+         if(this.shoeList.get(i).getId() == id){
+            this.shoeList.get(i).removeStock(number);
+         }
+      }
    }
 
    /**
@@ -115,10 +128,10 @@ public class Seller extends User{
     */ 
    public void shipOrder(int oid){
       for(int i =0;i<orderlist.size();i++){
-         if(this.orderlist.get(i).getOID()== oid){
+         if(this.orderlist.get(i).getOrderId()== oid){
             this.orderlist.get(i).setStatus("Shipped");
             this.shippedOrdersList.add(this.orderlist.get(i));
-            this.orderlist.remove(i)
+            this.orderlist.remove(i);
             return;
          }
       }
@@ -130,7 +143,7 @@ public class Seller extends User{
     *       the seller in which the prodcut is sold from
     * @returns orderlist
     */
-   public ArrayList<Orders> viewProductBacklog(){
+   public ArrayList<Order> viewProductBacklog(){
       return this.orderlist;
    }
 

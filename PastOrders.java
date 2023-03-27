@@ -6,7 +6,7 @@ viewing all past orders and the total cost of all inactive (delivered) orders.
 
 import java.util.ArrayList;
 
-public class PastOrders extends Orders {
+public class PastOrders extends Order {
     private double totalCost; // total cost of all past orders
     private int totalOrdersMade; // total number of past orders made
     private ArrayList<Order> pastOrderedItems; // list of all past orders
