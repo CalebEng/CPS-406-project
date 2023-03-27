@@ -122,6 +122,15 @@ public class User {
         return this.loggedIn;
     }
 
+    /**
+     * Grabs all the information about the user and returns it out to the calling class
+     * @return String containing informations about the user class for use in other classes
+     * @see Database
+     */
+    public String toDatabase(){
+        return "AccID:" + this.getId() + "|AccName:"+this.getName() +"|AccEmail:"+this.getEmail()+"|AccPassword:"+this.getPassword()+"|AccType:"+this.getType() + "\n";
+    }
+
 
     /**
      * tostring for testing
