@@ -6,7 +6,7 @@
  * holds all the information about a seller
  */
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Seller extends User{
    private ArrayList<Shoe> shoeList;

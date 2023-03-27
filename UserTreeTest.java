@@ -12,6 +12,7 @@ public class UserTreeTest {
         //Shopper shopTest = new Shopper("Woits biggest fan", "1234 street", "passwordShopper", "gmai.com2");
         //Shopper shopTest2 = new Shopper("joe", "some street", "911", "passwordshopper2", "gmai.com");
         User userTest = new User("woit", "We love Woit", "Cps590 is great", "user");
+        User userTest2 = new User("ShadowWizardMoneyGang", "We love", "casting spells", "user");
 
 
         System.out.println("User test:\n"+userTest);
