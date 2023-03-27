@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LoginPage extends JPanel{
     private JLabel email_label;
@@ -46,14 +45,17 @@ public class LoginPage extends JPanel{
         add(login_button);
     }
 
+    // returns the actual button object for the login button
     public JButton geButton(){
-        return login_button;
+        return this.login_button;
     }
 
+    // returns the email entered by the user
     public String getEmail(){
         return this.email_txt.getText();
     }
 
+    // returns the password entered by the user
     public String getPass(){
         return this.pass_txt.getText();
     }

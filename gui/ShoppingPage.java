@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ShoppingPage extends JPanel {
     private JTextField search_bar;
@@ -38,5 +37,10 @@ public class ShoppingPage extends JPanel {
         add(search_button);
         add(shoes_category);
         add(boots_category);
+    }
+
+    // gets the search query entered by the user
+    public String getQueryString(){
+        return this.search_bar.getText();
     }
 }

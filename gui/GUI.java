@@ -22,7 +22,7 @@ public class GUI implements ActionListener{
         window.setSize(1280, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // setup the page manager to switch between pages
+        // setup the page manager (cardlayout) which will allow us to seamlessly switch between pages
         pageManager = new CardLayout();
         pageLoadout = new JPanel(pageManager);
 
@@ -30,30 +30,30 @@ public class GUI implements ActionListener{
         login = new LoginPage();
         shop = new ShoppingPage();
 
-        // add the pages to the loadout
+        // add the pages to the loadout (you can think of this as like a list of pages that the page manager can swap between)
         pageLoadout.add(login, "login");
         pageLoadout.add(shop, "shop");
 
         // add the loadout to the screen
         window.add(pageLoadout);
 
-        // load the components of the login page
+        // initialize the components of the login and shopping page
         login.pageInit();
         shop.pageInit();
 
         //grab the login button component
         login_button = login.geButton();
-        // add it to the action listener, which listens for an action to take place in order to do something
+        // add it to the `action listener`, a built-in class/interface that listens for an action to take place, which we can manipulate into taking a specific action
         login_button.addActionListener(this);
         
-        // set default behaviour/size
+        // display the window
         window.setVisible(true);
     }
 
     // since the action listener is an interface, we can write our own implementation to switch to different pages when clicking a button
     @Override
     public void actionPerformed(ActionEvent e){
-        // if we click the login button
+        // if we click the login button, switch to the shopping page
         if (e.getSource() == login_button){
             showShop();
         }
