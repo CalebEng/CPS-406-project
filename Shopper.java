@@ -133,16 +133,10 @@ public class Shopper extends User{
      * removes an item from the user cart
      * @param itemI
      *      id of the item to be removed from the cart
-     * @returns true if the item was removed from the cart and false otherwise
+     * @see Cart
      */
-    public boolean removeFromCart(int itemI){
-        for(int i =0;i<this.shopperCart.size();i++){
-            if(this.shopperCart.get(i).getId()==itemI){
-                this.shopperCart.remove(i);
-                return true;
-            }
-        }
-        return false;
+    public void removeFromCart(int itemI){
+        this.shopperCart.removeItem(itemI);
     }
 
     /**
@@ -162,16 +156,10 @@ public class Shopper extends User{
      * removes an item from the users wishlist
      * @param itemI
      *      id of the item to be removed
-     * @return true if the item was removed from the wishlist and false otherwise
+     * @see Wishlist
      */
-    public boolean removeFromWishlist(int itemI){
-        for(int i =0;i<this.wishlist.size();i++){
-            if(this.wishlist.get(i).getId()==itemI){
-                this.wishlist.remove(i);
-                return true;
-            }
-        }
-        return false;
+    public void removeFromWishlist(int itemI){
+        this.wishlist.removeItem(itemI);
     }
 
     /**
