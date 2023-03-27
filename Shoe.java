@@ -103,4 +103,21 @@ public class Shoe {
             "|Description:" + description + 
             "|Reviews:" + reviews + "\n";
     }
+    
+//@returns info for shoe class    
+    public String toString() {
+        return "Shoe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stockCount=" + stockCount +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", size='" + size + '\'' +
+                ", colour='" + colour + '\'' +
+                ", brand='" + brand + '\'' +
+                ", addedBy='" + addedBy + '\'' +
+                ", reviews=" + reviews +
+                '}';
+    }
 }
