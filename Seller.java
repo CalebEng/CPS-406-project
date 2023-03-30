@@ -103,6 +103,8 @@ public class Seller extends User{
     * adds new stock to the shoes in shoeList
    * @param newStock
    *     the number to increase the stock by
+   * @param id
+   *     the id of the shoe to add stock to
    * @see Shoe
    */
    public void addStock(int newStock,int id){
@@ -117,6 +119,8 @@ public class Seller extends User{
     * removes stock from the shoes in shoeList
    * @param number
    *     the number to decrease stock by
+   * @param id
+   *     the id of the shoe to remove the stock from
    * @see Shoe
    */
    public void removeStock(int number,int id){

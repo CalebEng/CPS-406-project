@@ -4,7 +4,6 @@
  * testing user tree
  */
 
-import java.util.ArrayList;
 public class UserTreeTest {
     public static void main (String[]args){
         System.out.println("Seller Test: "+testSeller("GenName", "Woit@tmu.ca", "Woit is the best", "cps590 is the best course ever"));
@@ -15,7 +14,8 @@ public class UserTreeTest {
         System.out.println("User Test2: "+testUser("ShadowWizardMoneyGang", "We love", "casting spells"));
         System.out.println("User Methods Test: "+testUserMethods("woit", "We love Woit", "Cps590 is great"));
         System.out.println("Admin Methods Test: "+testAdminMethods("idk something", "imAnAdmin@tmu.ca", "password!"));
- 
+      //System.out.println("Seller Methods Test: "+testSellerMethods("GenName", "Woit@tmu.ca", "Woit is the best", "cps590 is the best course ever"));
+        System.out.println("Shopper Methods Test: "+testShopperMethods("joe", "some street", "911", "passwordshopper2", "gmai.com"));
       }
 
     /**
@@ -177,7 +177,53 @@ public class UserTreeTest {
      */
     public static boolean testSellerMethods(String name,String email,String password, String des){
       Seller sellTest = new Seller(name, email, password, des);
+      Cart temp = new Cart();
       int checked = 0;
+      
+      if(sellTest.getShoeList().size()==0){
+        checked++;
+      }
+      
+      sellTest.addShoe(new Shoe(123, "some kinda shoe", 50.6, 50, "some shoe thing", "running", "10", "black", "someone made this", "Seller"));
+      if(sellTest.getShoeList().size()==1){
+        checked++;
+      }
+
+      if(sellTest.removeShoe(12)==false){
+        checked++;
+      }
+
+      if(sellTest.viewShoe(12)==null){
+        checked++;
+      }
+      if(sellTest.viewShoe(123)!=null){
+        checked++;
+      }
+      sellTest.addStock(1,123);
+      if(sellTest.viewShoe(123).getStockCount()==51){
+        checked++;
+      }
+      sellTest.removeStock(1,123);
+      if(sellTest.viewShoe(123).getStockCount()==50){
+        checked++;
+      }
+      if(sellTest.removeShoe(123)==true){
+        checked++;
+      }
+
+      temp.addItem(new Shoe(123, "some kinda shoe", 50.6, 50, "some shoe thing", "running", "10", "black", "someone made this", "Seller"),1);
+
+      Order tempOrd = new Order(temp);
+
+      sellTest.addOrder(tempOrd);
+
+      if(sellTest.viewProductBacklog().size()==1){
+        checked++;
+      }
+      sellTest.shipOrder(tempOrd.getOrderId());
+      if(sellTest.viewProductBacklog().size()==0 && sellTest.viewShippedOrders().size()==1){
+        checked++;
+      }
 
       if(checked ==10){
         return true;
@@ -196,7 +242,7 @@ public class UserTreeTest {
      * @return true if passes all the test, false otherwise
      */
     public static boolean testShopperMethods(String name, String address, String password, String email,String phoneNumber){
-      int checked = 10;
+      int checked = 0;
       if(checked ==10){
         return true;
       }
