@@ -42,13 +42,13 @@ public class Admin extends User{
     /**
      * removes shoe from the seller list
      * @param remShoe
-     *      The shoe to be removed
+     *      The id of the shoe to be removed
      * @param solFrom 
      *      The seller the shoe should be removed from
      * @returns the result of the seller class version of this function
      * @see Seller
      */
-    public boolean removeShoe(Shoe remShoe,Seller soldFrom){
+    public boolean removeShoe(int remShoe,Seller soldFrom){
         return soldFrom.removeShoe(remShoe);
     }
 

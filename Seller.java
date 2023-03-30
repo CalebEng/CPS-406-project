@@ -33,6 +33,9 @@ public class Seller extends User{
    public Seller( String nameI, String emailI, String passwordI,String descriptionI){
       super(nameI, emailI, passwordI, "Seller");
       this.description = descriptionI;
+      this.shoeList = new ArrayList<Shoe>();
+      this.orderlist = new ArrayList<Order>();
+      this.shippedOrdersList = new ArrayList<Order>();
    }
 
    /**
@@ -47,12 +50,12 @@ public class Seller extends User{
    /**
     * removes a shoe from the seller list
     * @param remShoe
-    *       Shoe to be removed
+    *       id of the Shoe to be removed
     *@returns true if the shoe was removed and false otherwise
     */
-   public boolean removeShoe(Shoe remShoe){
+   public boolean removeShoe(int remShoe){
       for(int i=0;i<this.shoeList.size();i++){
-         if(this.shoeList.get(i).equals(remShoe)){
+         if(this.shoeList.get(i).getId()==remShoe){
                this.shoeList.remove(i);
                return true;
          }
@@ -122,6 +125,16 @@ public class Seller extends User{
             this.shoeList.get(i).removeStock(number);
          }
       }
+   }
+
+
+   /**
+    * Adds an order to the order list
+    * @param ord
+    * @see order
+    */
+   public void addOrder(Order ord){
+      this.orderlist.add(ord);
    }
 
    /**

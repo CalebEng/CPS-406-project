@@ -197,12 +197,14 @@ public class Shopper extends User{
      * @param total
      * @param orderDate
      * @param estimatedDate
-     * 
+     * @return the order for use
      * also sends the orders class a shopper cart item holding all of the shoes the user wishes to buy
      * @see Orders
      */
-    public void placeOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
-        shopperOrders.add(new Order(this.shopperCart));
+    public Order placeOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
+        Order temp = new Order(this.shopperCart);
+        shopperOrders.add(temp);
+        return temp;
 
     }
 
