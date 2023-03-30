@@ -85,7 +85,7 @@ public class Shoe {
         return reviews;
     }
 
-// Method to add a review to the list of reviews for the shoe.    
+    // Method to add a review to the list of reviews for the shoe.    
     public void addReview(String review) {
         reviews.add(review);
     }
