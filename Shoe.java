@@ -90,6 +90,24 @@ public class Shoe {
         reviews.add(review);
     }
     
+    // method to add stock
+    public void addStock(int amount) {
+        stockCount += amount;
+    }
+
+    // method to remove stock
+    //If there is no stock available to remove(stock of 0), shows first message.
+    //If there is some stock available, but the removing amount exceeds the stock amount, shows second message.
+    public void removeStock(int amount) {
+        if (stockCount >= amount) {
+            stockCount -= amount;
+        } else if (stockCount == 0) {
+            throw new IllegalArgumentException("No stock available to remove");
+        } else {
+            throw new IllegalArgumentException("Not enough stock available");
+        }
+    }
+    
     public String toDatabase() {
         return "ID:" + id + 
             "|Name:" + name +
