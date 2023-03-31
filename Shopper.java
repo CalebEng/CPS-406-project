@@ -55,6 +55,11 @@ public class Shopper extends User{
         //cart and whishlist to be implemented
         this.shopperCart = new Cart();
         this.wishlist = new Wishlist(true);
+
+        this.shopperOrders = new ArrayList<Order>();
+        this.orderList = new ArrayList<CurrentOrders>();
+        this.shoppReviews = new ArrayList<Review>();
+        this.pastOrderList = new ArrayList<PastOrders>();
     }
     
     /**

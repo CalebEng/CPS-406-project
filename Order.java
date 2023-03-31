@@ -26,7 +26,7 @@ public class Order {
         this.orderId = generateOrderId(); // generate a unique order ID using the generateOrderId() method
         this.status = "active"; // set the status to active
         this.cart = cart; // set the cart to the given cart object
-        this.total = cart.calculateTotalCost(); // calculate the total cost of the items in the cart
+        this.total = cart.getTotalCost(); // calculate the total cost of the items in the cart
         this.orderDate = new Date(); // set the order date to the current date and time
         this.estimatedDate = new Date(orderDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // set the estimated delivery date to one week after the order date
     }
@@ -39,7 +39,7 @@ public class Order {
         System.out.println("Status: " + status);
         System.out.println("Order Date: " + orderDate.toString());
         System.out.println("Estimated Delivery Date: " + estimatedDate.toString());
-        cart.viewCart(); // call the viewCart() method of the cart object to display the cart items
+        cart.display(); // call the viewCart() method of the cart object to display the cart items
         System.out.println("Total Cost: $" + total);
     }
 
