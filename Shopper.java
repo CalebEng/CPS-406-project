@@ -192,18 +192,14 @@ public class Shopper extends User{
 
     /**
      * creates a new order and stores in the the user variable shopper orders
-     * @param orderIdI
-     * @param status
-     * @param total
-     * @param orderDate
-     * @param estimatedDate
-     * @return the order for use
-     * also sends the orders class a shopper cart item holding all of the shoes the user wishes to buy
+     * sends the orders class a shopper cart item holding all of the shoes the user wishes to buy and clears the current cart.
+     * @return the order that was created
      * @see Orders
      */
-    public Order placeOrder(int orderIdI, String status, double total, Date orderDate, Date estimatedDate){
+    public Order placeOrder(){
         Order temp = new Order(this.shopperCart);
         shopperOrders.add(temp);
+        this.shopperCart = new Cart();
         return temp;
 
     }

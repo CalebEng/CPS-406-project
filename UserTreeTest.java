@@ -14,16 +14,18 @@ public class UserTreeTest {
         System.out.println("User Test2: "+testUser("ShadowWizardMoneyGang", "We love", "casting spells"));
         System.out.println("User Methods Test: "+testUserMethods("woit", "We love Woit", "Cps590 is great"));
         System.out.println("Admin Methods Test: "+testAdminMethods("idk something", "imAnAdmin@tmu.ca", "password!"));
-      //System.out.println("Seller Methods Test: "+testSellerMethods("GenName", "Woit@tmu.ca", "Woit is the best", "cps590 is the best course ever"));
+        System.out.println("Seller Methods Test: "+testSellerMethods("GenName", "Woit@tmu.ca", "Woit is the best", "cps590 is the best course ever"));
         System.out.println("Shopper Methods Test: "+testShopperMethods("joe", "some street", "911", "passwordshopper2", "gmai.com"));
       }
 
     /**
+     * User Tree 1:
      * Creates and tests the output of an admin
      * @param name
      * @param email
      * @param password
      * @return true if the toString is the correct output and false otherwise
+     * @see Admin
      */
     public static boolean testAdmin(String name, String email, String password){
       Admin  adTest = new Admin(name,email,password);
@@ -32,11 +34,13 @@ public class UserTreeTest {
 
  
      /**
+      * User Tree 2:
       * creates and test the output of a user
       * @param name
       * @param email
       * @param password
       * @return true if the toString is the correct output and false otherwise
+      @see User
       */
     public static boolean testUser(String name, String email,String password){
       User userTest = new User(name,email,password,"User");
@@ -44,12 +48,14 @@ public class UserTreeTest {
     }
 
     /**
+     * User Tree 3:
      * creates and test the output of a shopper without phonenumber input
      * @param name
      * @param address
      * @param password
      * @param email
      * @return true if the output matches that of the expected and false otherwise
+     * @see Shopper
      */
     public static boolean testShopper(String name, String address, String password, String email){
       Shopper shopTest = new Shopper(name, address, password, email);
@@ -58,12 +64,14 @@ public class UserTreeTest {
       +"Shopper orders: "+shopTest.getOrder()+"\nReviews: "+shopTest.getReviews()));
     }
     /**
+     * User Tree 4:
      * creates and test the output of a shopper without phonenumber input
      * @param name
      * @param address
      * @param password
      * @param email
      * @return true if the output matches that of the expected and false otherwise
+     * @see Shopper
      */
     public static boolean testShopper(String name, String address, String password, String email,String phoneNumber){
       Shopper shopTest = new Shopper(name, address, phoneNumber, password, email);
@@ -73,12 +81,14 @@ public class UserTreeTest {
     }
 
     /**
+     * User Tree 5:
      * creates and tests the output of a seller
      * @param name
      * @param email
      * @param password
      * @param des
      * @return true if the toString matches expected output and false otherwise
+     * @see Seller
      */
     public static boolean testSeller(String name,String email,String password, String des){
       Seller sellTest = new Seller(name, email, password, des);
@@ -88,11 +98,13 @@ public class UserTreeTest {
 
 
     /**
+     * User Tree 6:
      * tests the inner methods of the user class
      * @param name
      * @param email
      * @param password
      * @return true if it passes all of the tests, false otherwise
+     * @see User
      */
     public static boolean testUserMethods(String name, String email,String password){
       User userTest = new User(name,email,password,"User");
@@ -142,11 +154,13 @@ public class UserTreeTest {
 
 
     /**
+     * User Tree 7:
      * tests the inner methods of the admin class
      * @param name
      * @param email
      * @param password
      * @return true if admin passes all of the tests, false otherwise
+     * @see Admin
      */
     public static boolean testAdminMethods(String name, String email, String password){
       Admin  adTest = new Admin(name,email,password);
@@ -168,12 +182,14 @@ public class UserTreeTest {
     }
 
     /**
+     * User Tree 8:
      * Tests the inner methods of the seller class
      * @param name
      * @param email
      * @param password
      * @param des
      * @return true if passes all the tests, false otherwise
+     * @see Seller
      */
     public static boolean testSellerMethods(String name,String email,String password, String des){
       Seller sellTest = new Seller(name, email, password, des);
@@ -233,17 +249,48 @@ public class UserTreeTest {
 
 
     /**
+     * User Tree 9:
      * Tests the inner methods of the shopper class
      * @param name
      * @param address
      * @param password
      * @param email
      * @param phoneNumber
-     * @return true if passes all the test, false otherwise
+     * @return true if passes all the tests, false otherwise
+     * @see Shopper
      */
     public static boolean testShopperMethods(String name, String address, String password, String email,String phoneNumber){
+      Shopper shoppTest = new Shopper(name, address, phoneNumber, password, email);
+      
       int checked = 0;
-      if(checked ==10){
+
+      shoppTest.addToCart(new Shoe(123, "some kinda shoe", 50.6, 50, "some shoe thing", "running", "10", "black", "someone made this", "Seller"), 1);
+      if(shoppTest.getCart().getTotalItems()==1){
+        checked++;
+      }
+      Order temp = shoppTest.placeOrder();
+      if(shoppTest.getCart().getTotalItems()==0 && shoppTest.getOrder().size()==1){
+        checked++;
+      }
+      shoppTest.cancelOrder(temp.getOrderId());
+      if(shoppTest.getOrder().size()==0){
+        checked++;
+      }
+      shoppTest.addToCart(new Shoe(123, "some kinda shoe", 50.6, 50, "some shoe thing", "running", "10", "black", "someone made this", "Seller"), 1);
+      shoppTest.removeFromCart(123);
+      if(shoppTest.getCart().getTotalItems()==0){
+        checked++;
+      }
+      shoppTest.addToWishlist(new Shoe(123, "some kinda shoe", 50.6, 50, "some shoe thing", "running", "10", "black", "someone made this", "Seller"), 1);
+      if(shoppTest.getWishlist().getTotalItems()==1){
+        checked++;
+      }
+      shoppTest.removeFromWishlist(123);
+      if(shoppTest.getWishlist().getTotalItems()==0){
+        checked++;
+      }
+
+      if(checked ==6){
         return true;
       }
       else return false;
