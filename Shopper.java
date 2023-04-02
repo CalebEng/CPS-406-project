@@ -225,6 +225,32 @@ public class Shopper extends User{
         return false;
     }
 
+    /**
+     * Create a review for a shoe
+     * @param shoe
+     *      The shoe that the review is for
+     * @param rating
+     *      The numerical rating of the shoe
+     * @param comment
+     *      Any comments the shopper wishes to leave on the shoe
+    */
+    public void addReview(Shoe shoe, double rating, String comment){
+        Review review = new Review(rating, comment);
+        this.shoppReviews.add(review);
+        shoe.addReview(review);
+    }
+
+    /**
+     * Removes a review that the user has left on a shoe
+     * @param shoe
+     *      The shoe that the review belongs to
+     * @param review
+     *      The review that is to be deleted
+    */
+    public void deleteReview(Shoe shoe, Review review){
+        this.shoppReviews.remove(review);
+        shoe.deleteReview(review);
+    }
 
     /**
      * to string for the shopper class

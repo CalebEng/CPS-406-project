@@ -23,7 +23,7 @@ public class Shoe {
     private String colour;
     private String brand;
     private String addedBy;
-    private List<String> reviews;
+    private List<Review> reviews;
 
  // Constructor to initialize the shoe object with the given attributes.
     public Shoe(int id, String name, double price, int stockCount, String description, String type, String size,
@@ -38,7 +38,7 @@ public class Shoe {
         this.colour = colour;
         this.brand = brand;
         this.addedBy = addedBy;
-        this.reviews = new ArrayList<>(); // Initialize the reviews list as an empty ArrayList.
+        this.reviews = new ArrayList<Review>(); // Initialize the reviews list as an empty ArrayList.
     }
 
 // Getters to access the various attributes of the shoe.   
@@ -82,13 +82,18 @@ public class Shoe {
         return addedBy;
     }
 
-    public List<String> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    // Method to add a review to the list of reviews for the shoe.    
-    public void addReview(String review) {
+    // Method to add a review to the list of reviews for the shoe.
+    public void addReview(Review review){
         reviews.add(review);
+    }
+
+    // Method to delete a review from the list of reviews for the shoe.
+    public void deleteReview(Review review){
+        reviews.remove(review);
     }
     
     // method to add stock

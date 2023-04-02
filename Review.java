@@ -6,21 +6,17 @@
 */
 
 public class Review {
-    private User reviewer;
     private double rating;
     private String comment;
 
     /**
      * Class constructor
-     * @param reviewer
-     *      the user leaving the review
      * @param rating
      *      the rating that the user has given a product
      * @param comment
      *      the comment that the user has left on a product
     */
-    public Review(User reviewer, double rating, String comment){
-        this.reviewer = reviewer;
+    public Review(double rating, String comment){
         this.rating = rating;
         this.comment = comment;
     }
@@ -41,21 +37,11 @@ public class Review {
         this.comment = comment;
     }
 
-    // Other class methods:
-    /**
-     * "Deletes" a review by removing all its information
-    */
-    public void deleteReview(){
-        this.reviewer = null;
-        this.rating = null;
-        this.comment = null;
-    }
-
     /**
      * tostring for testing
      * @returns information about the review class
     */
     public String toString(){
-        return "Username: " + reviewer.getName() + "\nRating: " + this.rating + "\nComment: " + this.comment;
+        return "Rating: " + this.rating + "\nComment: " + this.comment;
     }
 }
