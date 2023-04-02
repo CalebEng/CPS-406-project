@@ -1,13 +1,12 @@
+import java.io.*;
+import java.util.*;
+
 /*
  * Database class:
  * writes all the information about Orders, Products, and Users to respective files
  * gets information on Order, Product, and Users from respective files
  * deletes information on Order, Product, and User from respective files
  */
-
-package db;
-import java.io.*;
-import java.util.*;
 
 public class Database {
     private String basePath;
