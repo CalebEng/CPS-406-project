@@ -65,11 +65,12 @@ public class UserTreeTest {
     }
     /**
      * User Tree 4:
-     * creates and test the output of a shopper without phonenumber input
+     * creates and test the output of a shopper with phonenumber input
      * @param name
      * @param address
      * @param password
      * @param email
+     * @param phoneNumber
      * @return true if the output matches that of the expected and false otherwise
      * @see Shopper
      */
