@@ -16,7 +16,8 @@ public class CurrentOrders extends Order {
     /*
      * Constructor for the class
      */
-    public CurrentOrders() {
+    public CurrentOrders(Cart cart) {
+        super(cart);
         this.totalSpent = 0.0; // initialize total amount spent to 0
         this.totalOrders = 0; // initialize total number of orders to 0
         this.currentOrderedItems = new ArrayList<>(); // initialize the list of current orders to an empty ArrayList

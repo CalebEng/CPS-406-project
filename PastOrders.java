@@ -14,7 +14,8 @@ public class PastOrders extends Order {
     /*
      * Constructor for the class
      */
-    public PastOrders() {
+    public PastOrders(Cart cart) {
+        super(cart);
         this.totalCost = 0.0; // initialize total cost to 0
         this.totalOrdersMade = 0; // initialize total orders made to 0
         this.pastOrderedItems = new ArrayList<>(); // initialize the list of past ordered items to an empty ArrayList
