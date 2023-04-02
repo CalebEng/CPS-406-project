@@ -5,6 +5,7 @@
  * deletes information on Order, Product, and User from respective files
  */
 
+package db;
 import java.io.*;
 import java.util.*;
 
