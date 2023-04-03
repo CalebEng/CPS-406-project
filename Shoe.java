@@ -8,12 +8,13 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.IllegalArgumentException;
+import java.util.UUID;
 
 
 // This class represents a shoe object with various attributes such as id, name, price, stock count, description,
 // type, size, colour, brand and who it is added by. It also contains a list of reviews for the shoe.
 public class Shoe {
-    private int id;
+    private UUID id;
     private String name;
     private double price;
     private int stockCount;
@@ -28,7 +29,7 @@ public class Shoe {
  // Constructor to initialize the shoe object with the given attributes.
     public Shoe(int id, String name, double price, int stockCount, String description, String type, String size,
             String colour, String brand, String addedBy) {
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.name = name;
         this.price = price;
         this.stockCount = stockCount;
@@ -42,7 +43,7 @@ public class Shoe {
     }
 
 // Getters to access the various attributes of the shoe.   
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
