@@ -17,28 +17,28 @@ public class CurrentOrders extends Order {
      * Constructor for the class
      */
     public CurrentOrders(Cart cart) {
-        super(cart);
+        super(cart); // pass the cart object to the Order constructor using super
         this.totalSpent = 0.0; // initialize total amount spent to 0
         this.totalOrders = 0; // initialize total number of orders to 0
         this.currentOrderedItems = new ArrayList<>(); // initialize the list of current orders to an empty ArrayList
     }
 
-    /*
-     * Returns the number of active orders in the current order list
+    /**
+     * Returns the number of active orders in the current order list.
      * 
-     * @return
-     *      The number of active orders in the current order list
+     * @return The number of active orders in the current order list.
      */
-    public int viewTotalOrders() {
+    public ArrayList<Order> viewTotalOrders() {
         ArrayList<Order> activeOrders = new ArrayList<>(); // create a new ArrayList to hold active orders
         for (Order order : currentOrderedItems) { // loop through all current ordered items
             if (order.getStatus().equals("active")) { // if the order status is active
                 activeOrders.add(order); // add the order to the list of active orders
             }
         }
-        return activeOrders.size(); // return the number of active orders
+        return activeOrders; // return the list of active orders
     }
 
+    
     /*
      * Returns the total amount spent on active orders in the current order list
      * 
@@ -46,6 +46,7 @@ public class CurrentOrders extends Order {
      *      The total amount spent on active orders in the current order list
      */
     public double viewTotalSpent() {
+        totalSpent = 0; // reset totalCost to 0
         for (Order order : currentOrderedItems) { // loop through all current ordered items
             if (order.getStatus().equals("active")) { // if the order status is active
                 totalSpent += order.getTotal(); // add the total cost of the order to the total amount spent on current orders
@@ -79,6 +80,17 @@ public class CurrentOrders extends Order {
     }
 
     // Getters and setters for all attributes
+
+    /**
+     * Sets the list of current orders to the specified list of orders and updates the total number of active orders.
+     *
+     * @param currentOrders the list of current orders to be set
+     */
+    public void setCurrentOrders(ArrayList<Order> currentOrders) {
+        this.currentOrderedItems = currentOrders;
+        totalOrders = currentOrders.size(); // set totalActiveOrders to the size of the currentOrders list
+    }
+    
     public double getTotalSpent() {
         return totalSpent;
     }
@@ -98,4 +110,8 @@ public class CurrentOrders extends Order {
 	public ArrayList<Order> getCurrentOrderedItems() {
 		return currentOrderedItems;
 	}
+
+
+
+
 }	
