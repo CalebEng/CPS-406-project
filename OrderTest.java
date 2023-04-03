@@ -243,8 +243,6 @@ public static void testViewTotalOrders() {
     
     // Compare expected and actual lists
     boolean isEqual = expectedCurrentOrders.equals(actualCurrentOrders);
-    System.out.println(expectedCurrentOrders);
-    System.out.println(actualCurrentOrders);
     if (isEqual) {
         System.out.println("testViewTotalOrders Passed");
     } else {
