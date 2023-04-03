@@ -107,11 +107,8 @@ public class CurrentOrders extends Order {
         this.totalOrders = totalOrders;
 	}
 	
-	public ArrayList<Order> getCurrentOrderedItems() {
+   public ArrayList<Order> getCurrentOrderedItems() {
 		return currentOrderedItems;
 	}
-
-
-
 
 }	
