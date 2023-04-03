@@ -24,7 +24,7 @@ public class Shoe {
     private String colour;
     private String brand;
     private String addedBy;
-    private List<Review> reviews;
+    private ArrayList<Review> reviews;
 
  // Constructor to initialize the shoe object with the given attributes.
     public Shoe(int id, String name, double price, int stockCount, String description, String type, String size,
@@ -83,7 +83,7 @@ public class Shoe {
         return addedBy;
     }
 
-    public List<Review> getReviews() {
+    public ArrayList<Review> getReviews() {
         return reviews;
     }
 
