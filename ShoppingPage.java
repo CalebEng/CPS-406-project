@@ -8,6 +8,7 @@ public class ShoppingPage extends JPanel {
     private JButton account_button;
     private JButton cart_button;
     private JButton wishlist_button;
+    private JButton orders_button;
 
     public ShoppingPage(){
         // set/configures properties of all components on the page
@@ -28,23 +29,31 @@ public class ShoppingPage extends JPanel {
         welcome_msg.setBounds(201, 257, 900, 46);
         welcome_msg.setFont(new Font("Sans-Serif", Font.BOLD, 40));
         
+        // ALL BUTTONS
+
         // view account button properties
         account_button = new JButton("VIEW YOUR ACCOUNT");
-        account_button.setBounds(114, 389, 264, 213);
+        account_button.setBounds(76, 389, 264, 213);
         account_button.setFont(new Font("Sans-Serif", Font.BOLD, 20));
         account_button.setBackground(Color.LIGHT_GRAY);
 
         // view cart button properties
         cart_button = new JButton("VIEW YOUR CART");
-        cart_button.setBounds(508, 389, 264, 213);
+        cart_button.setBounds(367, 389, 264, 213);
         cart_button.setFont(new Font("Sans-Serif", Font.BOLD, 20));
         cart_button.setBackground(Color.LIGHT_GRAY);
 
         // view wishlist button properties
         wishlist_button = new JButton("VIEW YOUR WISHLIST");
-        wishlist_button.setBounds(902, 389, 264, 213);
+        wishlist_button.setBounds(658, 389, 264, 213);
         wishlist_button.setFont(new Font("Sans-Serif", Font.BOLD, 20));
         wishlist_button.setBackground(Color.LIGHT_GRAY);
+
+        // view wishlist button properties
+        orders_button = new JButton("VIEW YOUR ORDERS");
+        orders_button.setBounds(939, 389, 264, 213);
+        orders_button.setFont(new Font("Sans-Serif", Font.BOLD, 20));
+        orders_button.setBackground(Color.LIGHT_GRAY);
     }
 
     // intializes the components onto the panel
@@ -59,6 +68,11 @@ public class ShoppingPage extends JPanel {
         add(account_button);
         add(cart_button);
         add(wishlist_button);
+        add(orders_button);
+    }
+
+    public JButton getSearchButton(){
+        return this.search_button;
     }
 
     // gets the search query entered by the user

@@ -434,7 +434,7 @@ import java.util.*;
      * @param pass password string
      * @return true when email and password match, false when they don't
      */
-    public boolean authenticateUsers(String email, String pass) throws IOException {
+    public String authenticateUsers(String email, String pass, String type) throws IOException {
         File file = new File(basePath + "/dbUsers.txt");
         int inFile = 0;
         Scanner scanner = new Scanner(file);
@@ -444,11 +444,13 @@ import java.util.*;
             String line = scanner.nextLine();
     
             String[] parts = line.split("\\|");
+            String accID = (parts[0].substring(6));
             String accEmail = (parts[2].substring(9));
             String accPass = (parts[3].substring(12));
+            String accType = (parts[4].substring(8));
 
-            if (accEmail.equals(email) && accPass.equals(pass) ) {
-               return true;
+            if (accEmail.equals(email) && accPass.equals(pass) && accType.equals(type)) {
+               return accID;
             }
 
             
@@ -456,7 +458,7 @@ import java.util.*;
         }
         scanner.close();
 
-        return false;
+        return null;
     
         
     }

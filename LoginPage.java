@@ -2,16 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 
 // If you break it down, the login page is basically a container (is the main panel), that contains a collection of components/sub-panels
-public class LoginPage extends JPanel{
+public class LoginPage extends JPanel {
     private JLabel login_title;
     private JLabel email_label;
     private JLabel pass_label;
     private JTextField email_txt;
-    private JTextField pass_txt;
+    private JTextField pass_txt; //TODO: turn this into a password field later
     private JButton login_button;
     private JLabel type_label;
     private JComboBox type_indicator;
-    private String[] user_types = {"SHOPPER", "SELLER", "ADMIN"};
+    private String[] user_types = {"Shopper", "Seller", "Admin"};
     private JLabel not_reg;
     private JButton register_button;
 
@@ -86,8 +86,13 @@ public class LoginPage extends JPanel{
     }
 
     // returns the actual button object for the login button
-    public JButton getButton(){
+    public JButton getLoginButton(){
         return this.login_button;
+    }
+
+    // returns the button object for the registration button for new users
+    public JButton getRegistrationButton(){
+        return this.register_button;
     }
 
     // returns the email entered by the user
@@ -98,5 +103,10 @@ public class LoginPage extends JPanel{
     // returns the password entered by the user
     public String getPass(){
         return this.pass_txt.getText();
+    }
+
+    // gets the user's type
+    public String getSelection(){
+        return (String)this.type_indicator.getSelectedItem();
     }
 }

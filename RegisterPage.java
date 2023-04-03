@@ -6,11 +6,11 @@ public class RegisterPage extends JPanel{
     private JLabel email_label;
     private JLabel pass_label;
     private JTextField email_txt;
-    private JTextField pass_txt;
+    private JTextField pass_txt; //TODO: turn this into a password field later
     private JButton register_button;
     private JLabel type_label;
     private JComboBox type_indicator;
-    private String[] user_types = {"SHOPPER", "SELLER"};
+    private String[] user_types = {"Shopper", "Seller"};
     private JButton back_button;
 
     RegisterPage(){
@@ -50,10 +50,18 @@ public class RegisterPage extends JPanel{
         type_indicator.setBackground(Color.LIGHT_GRAY);
         type_indicator.setBounds(687, 446, 180, 50);
 
+        //back button properties
+        back_button = new JButton("< BACK");
+        back_button.setBounds(1005, 570, 175, 50);
+        back_button.setFont(new Font("Sans-Serif", Font.PLAIN, 24));
+        back_button.setBackground(Color.LIGHT_GRAY);
+
     }
 
     public void pageInit(){
         setLayout(null);
+
+        add(register_title);
 
         add(email_label);
         add(email_txt);
@@ -66,7 +74,30 @@ public class RegisterPage extends JPanel{
         add(type_label);
         add(type_indicator);
 
+        add(back_button);
     }
 
-    //class method to return a user object? maybe...
+    // returns the register button object
+    public JButton getRegisterButton(){
+        return this.register_button;
+    }
+
+    public JButton getBackButton(){
+        return this.back_button;
+    }
+
+    // returns the email entered by the user
+    public String getEmail(){
+        return this.email_txt.getText();
+    }
+
+    // returns the password entered by the user
+    public String getPass(){
+        return this.pass_txt.getText();
+    }
+
+    // gets the user's type
+    public String getSelection(){
+        return (String)this.type_indicator.getSelectedItem();
+    }
 }
