@@ -30,7 +30,7 @@ public class ShoeTest {
         return shoe.getName().equals("Nike Air Force 1") &&
                 shoe.getPrice() == 150.00 &&
                 shoe.getStockCount() == 10 &&
-                shoe.getDescription().equals("A classic, redefined.") &&
+                shoe.getDescription().equals("Not Jordan's, but good enough.") &&
                 shoe.getType().equals("Athletic") &&
                 shoe.getSize().equals("9.5") &&
                 shoe.getColour().equals("White") &&
