@@ -26,7 +26,7 @@ public class ShoeTest {
      * @param review
      */
     public static boolean testShoeConstructor() {
-        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "A classic, redefined.", "Athletic", "9.5", "White", "Nike", "John");
+        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "Not Jordan's, but good enough.", "Athletic", "9.5", "White", "Nike", "John");
         return shoe.getName().equals("Nike Air Force 1") &&
                 shoe.getPrice() == 150.00 &&
                 shoe.getStockCount() == 10 &&
@@ -43,7 +43,7 @@ public class ShoeTest {
      * ShoeTest 2: adding stock
      */
     public static boolean testAddStock() {
-        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "A classic, redefined.", "Athletic", "9.5", "White", "Nike", "John");
+        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "Not Jordan's, but good enough.", "Athletic", "9.5", "White", "Nike", "John");
         shoe.addStock(5);
         return shoe.getStockCount() == 15;
     }
@@ -55,7 +55,7 @@ public class ShoeTest {
         removing nothing
      */
     public static boolean testRemoveStock() {
-        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "A classic, redefined.", "Athletic", "9.5", "White", "Nike", "John");
+        Shoe shoe = new Shoe(1, "Nike Air Force 1", 150.00, 10, "Not Jordan's, but good enough.", "Athletic", "9.5", "White", "Nike", "John");
         shoe.removeStock(5); // remove 5
         if (shoe.getStockCount() != 5) { // should have 5 left
             return false;
