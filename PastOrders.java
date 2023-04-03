@@ -16,9 +16,9 @@ public class PastOrders extends Order {
      */
     public PastOrders(Cart cart) {
         super(cart);
-        this.totalCost = 0.0; // initialize total cost to 0
-        this.totalOrdersMade = 0; // initialize total orders made to 0
-        this.pastOrderedItems = new ArrayList<>(); // initialize the list of past ordered items to an empty ArrayList
+        this.totalCost = 0.0;
+        this.totalOrdersMade = 0;
+        this.pastOrderedItems = new ArrayList<>();
     }
 
     /*
@@ -37,6 +37,7 @@ public class PastOrders extends Order {
         return inactiveOrders; // return the list of inactive orders
     }
 
+    
     /*
      * Calculates the total cost of all inactive orders
      * 
@@ -44,14 +45,16 @@ public class PastOrders extends Order {
      *      The total cost of all inactive orders
      */
     public double viewTotalCost() {
-        for (Order order : pastOrderedItems) { // loop through all past ordered items
-            if (order.getStatus().equals("inactive")) { // if the order status is inactive
-                totalCost += order.getTotal(); // add the total cost of the order to the total cost of all inactive orders
+        totalCost = 0; // reset totalCost to 0
+        for (Order order : pastOrderedItems) {
+            if (order.getStatus().equals("inactive")) {
+                totalCost += order.getTotal();
             }
         }
-        return totalCost; // return the total cost of all inactive orders
+        return totalCost;
     }
-
+    
+    
     /*
      * Adds a past order to the list and updates total cost and total orders made
      * 
@@ -64,7 +67,22 @@ public class PastOrders extends Order {
         totalCost += order.getTotal(); // add the total cost of the order to the total cost of all past orders
     }
 
+    public double viewTotalSpent() {
+        return totalCost;
+    }
+
     // Getters and setters for all attributes
+
+    /*
+    Sets the list of past ordered items to the given list of orders and updates the total cost and total orders made accordingly.
+    * @param pastOrderedItems
+    *     The list of orders to be set as the list of past ordered items
+    */
+    public void setPastOrders(ArrayList<Order> pastOrders) {
+        this.pastOrderedItems = pastOrders;
+        totalOrdersMade = pastOrders.size(); // set totalOrdersMade to the size of the pastOrders list
+    }
+    
     public double getTotalCost() {
         return totalCost;
     }
@@ -84,4 +102,6 @@ public class PastOrders extends Order {
     public ArrayList<Order> getPastOrderedItems() {
         return pastOrderedItems;
     }
+
+
 }
