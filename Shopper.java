@@ -234,7 +234,7 @@ public class Shopper extends User{
      * @param comment
      *      Any comments the shopper wishes to leave on the shoe
     */
-    public void addReview(Shoe shoe, double rating, String comment){
+    public void writeReview(Shoe shoe, double rating, String comment){
         Review review = new Review(rating, comment);
         this.shoppReviews.add(review);
         shoe.addReview(review);
