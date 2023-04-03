@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Order {
+    private static int lastOrderId = 0;
     private int orderId; // unique identifier for the order
     private String status; // current status of the order (active or inactive)
     private double total; // total cost of all the items in the order
@@ -34,13 +35,13 @@ public class Order {
     /*
      * Displays the order details, including the cart items, total cost, and order and estimated delivery dates
      */
-    public void viewOrder() {
-        System.out.println("Order #" + orderId);
-        System.out.println("Status: " + status);
-        System.out.println("Order Date: " + orderDate.toString());
-        System.out.println("Estimated Delivery Date: " + estimatedDate.toString());
-        cart.display(); // call the viewCart() method of the cart object to display the cart items
-        System.out.println("Total Cost: $" + total);
+    public String viewOrder() {
+        String orderDetails = "Order #" + orderId + "\n";
+        orderDetails += "Status: " + status + "\n";
+        orderDetails += "Order Date: " + orderDate.toString() + "\n";
+        orderDetails += "Estimated Delivery Date: " + estimatedDate.toString() + "\n";
+        orderDetails += cart.display(); 
+        return orderDetails;
     }
 
     /*
@@ -54,16 +55,21 @@ public class Order {
     }
 
     /*
-     * Generates a random 4-digit number to use as the order ID
+     * Generates a random 4-digit number to use as the order ID, ensuring that it's different from the last generated ID
      * 
      * @return
      *      The randomly generated order ID
      */
-    private int generateOrderId() {
-        Random rand = new Random(); // create a new Random object
-        int orderId = rand.nextInt(9000) + 1000; // generate a 4-digit random number between 1000 and 9999
+    public int generateOrderId() {
+        Random rand = new Random();
+        int orderId;
+        do {
+            orderId = rand.nextInt(9000) + 1000;
+        } while (orderId == lastOrderId);
+        lastOrderId = orderId; // update the last order ID generated
         return orderId;
     }
+    
 
     // Getters and setters for all attributes
     public int getOrderId() {
@@ -73,6 +79,10 @@ public class Order {
     public String getStatus() {
         return status;
     }
+
+    public void markAsInactive() {
+        this.status = "inactive";
+    }    
 
     public void setStatus(String status) {
         this.status = status;
@@ -106,5 +116,10 @@ public class Order {
     public String toDatabase() {
         return "OrderID:" + orderId + "|Status:" + status + "|Total:" + total + "|OrderDate:" + orderDate.getTime() + "|EstimatedDate:" + estimatedDate.getTime() + "\n";
     }
-}
 
+    public String toString() {
+        return "Order ID: " + orderId + ", Total Cost: $" + cart.getTotalCost();
+    }
+    
+    
+}
