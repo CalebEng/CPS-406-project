@@ -100,19 +100,21 @@ public class Cart {
     * Displays the items in the cart, along with their quantities and prices, and the total number
     * of items and cost of all the items in the cart.
     */
-    public void display() {
+    public String display() {
+        String output = "";
         if (items.isEmpty()) {
-            System.out.println("Your cart is empty.");
+            output += "Your cart is empty.";
         } else {
-            System.out.println("Your cart contains:");
+            output += "Your cart contains:\n";
             for (int shoeId : items.keySet()) {
                 int quantity = items.get(shoeId);
                 double price = prices.get(shoeId);
-                System.out.println("- Shoe ID: " + shoeId + ", Quantity: " + quantity + ", Price: $" + price);
+                output += "- Shoe ID: " + shoeId + ", Quantity: " + quantity + ", Price: $" + price + "\n";
             }
-            System.out.println("Total items: " + getTotalItems());
-            System.out.println("Total cost: $" + getTotalCost());
+            output += "Total items: " + getTotalItems() + "\n";
+            output += "Total cost: $" + getTotalCost() + "\n";
         }
+        return output;
     }
 
 
