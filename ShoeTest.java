@@ -72,7 +72,7 @@ public class ShoeTest {
             shoe.removeStock(0); // try to remove 0
             return false;
         } catch (IllegalArgumentException e) {
-            if (!e.getMessage().equals("No stock available to remove")) { // check if correct exception was thrown
+            if (!e.getMessage().equals("Nothing is removed")) { // check if correct exception was thrown
                 return false;
             }
         }
