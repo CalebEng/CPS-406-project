@@ -42,6 +42,6 @@ public class Review {
      * @returns information about the review class
     */
     public String toString(){
-        return "Rating: " + this.rating + "\nComment: " + this.comment;
+        return "(Rating=" + this.rating + "&Comment=" + this.comment + ")";
     }
 }

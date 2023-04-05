@@ -26,7 +26,7 @@ public class ReviewTest {
     */
     public static boolean testReview(double rating, String comment){
         Review reviewTest = new Review(rating, comment);
-        return (reviewTest.toString().equals("Rating: " + rating + "\nComment: " + comment));
+        return (reviewTest.toString().equals("(Rating=" + rating + "&Comment=" + comment + ")"));
     }
 
     /**

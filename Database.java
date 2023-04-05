@@ -183,7 +183,12 @@ import java.util.*;
     
         for (String section : sections) {
             String[] parts = section.split(":");
-            map.put(parts[0], parts[1]);
+
+            if (parts.length == 2){
+                map.put(parts[0], parts[1]);
+            } else{
+                map.put(parts[0], "");
+            }
         }
     
         return map;
@@ -376,7 +381,8 @@ import java.util.*;
                 String substring = parts[i].substring(startIndex);
                 substring = substring.trim();
 
-                if (search.equals(substring)){
+                // checks if keyword is contained within any of the fields
+                if (search.toLowerCase().contains(substring.toLowerCase())){
                     Map<String, String> map = lineToMap(line);
                     Shoe shoe = mapToShoe(map);
                     list.add(shoe); 
@@ -397,14 +403,110 @@ import java.util.*;
      * @return a Map containing the information from Product, User or Order
      */
     public Shoe mapToShoe(Map<String, String> map) {
- 
-
         Shoe shoe = new Shoe(Integer.parseInt(map.get("ID")), map.get("Name"),Double.parseDouble(map.get("Price")), Integer.parseInt(map.get("Stock count")), 
         map.get("Description"), map.get("Type"), map.get("Size"), map.get("Colour"), map.get("Brand"), map.get("Added by"));
+
+        //converting the reviews from text format to a review object
+        String reviewString = map.get("Reviews");
+        
+        if (!reviewString.equals("[]")){
+            String[] allReviews = reviewString.substring(1, reviewString.length()-1).split(","); // removes square brackets from the string
+
+            for (String r:allReviews){
+                //System.out.println(r);
+                String[] review = r.substring(1, r.length()-1).split("&"); // removes the outer (), and separates the rating and comment
+                Double rating = Double.parseDouble(review[0].split("=")[1]); // extracts the rating from the review string
+                String com = review[1].split("=")[1]; // extracts the comment from the review string
+                shoe.addReview(new Review(rating, com));
+            }
+        }
+        
         //System.out.println(shoe.toDatabase());
 
         return shoe;
         
+    }
+
+    /**
+     * Converts information from the Product, User or Order map into a useable instance of that object (not actual copy is returned)
+     * @param line the line from the file to be converted
+     * @return a Map containing the information from Product, User or Order
+     */
+    public Shopper mapToShopper(Map<String, String> map) {
+        Shopper shopper;
+
+        // grab all user info from map
+        String id = map.get("AccID");
+        String name = map.get("AccName");
+        String stringCart = map.get("AccCart");
+        String stringWish = map.get("AccWishlist");
+        String email = map.get("AccEmail");
+        String pass = map.get("AccPassword");
+        String phone = map.get("AccPhone");
+        String address = map.get("AccAddr");
+
+        if (address == null){
+            if (phone == null){
+                shopper = new Shopper(name, "", pass, email);
+            }else {
+                shopper = new Shopper(name, "", phone, pass, email);
+            }
+        }else{
+            shopper = new Shopper(name, address, phone, pass, email);
+        }
+
+        //converting cart from text format to shoe objects to be added to the instance cart
+        if (!stringCart.equals("{}")){
+            String[] allProds = stringCart.substring(1, stringCart.length()-1).split(",");
+
+            for (String p:allProds){
+                int prodID_c = Integer.parseInt(p.split("=")[0]);
+                int prodQ_c = Integer.parseInt(p.split("=")[1]);
+
+                try {
+                    String shoeString = fromOrders(prodID_c);
+
+                    // just in-case the product no longer exists
+                    if (!shoeString.equals("")){
+
+                        Map<String, String> shoeMap = lineToMap(shoeString);
+                        Shoe s = mapToShoe(shoeMap);
+    
+                        shopper.addToCart(s, prodQ_c);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //converting wishlist from text format to shoe objects to be added to the instance wishlist
+        if (!stringWish.equals("{}")){
+            String[] allProds = stringWish.substring(1, stringWish.length()-1).split(",");
+
+            for (String p:allProds){
+                int prodID_w = Integer.parseInt(p.split("=")[0]);
+                int prodQ_w = Integer.parseInt(p.split("=")[1]);
+
+                try {
+                    String shoeString = fromOrders(prodID_w);
+
+                    // just in-case the product no longer exists
+                    if (!shoeString.equals("")){
+
+                        Map<String, String> shoeMap = lineToMap(shoeString);
+                        Shoe s = mapToShoe(shoeMap);
+    
+                        shopper.addToWishlist(s, prodQ_w);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        shopper.setID(Integer.parseInt(id)); // replaces randomly generated id
+        return shopper;
     }
 
 

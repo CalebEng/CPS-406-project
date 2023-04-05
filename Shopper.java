@@ -253,6 +253,16 @@ public class Shopper extends User{
     }
 
     /**
+     * Grabs all the information about the user and returns it out to the calling class
+     * @return String containing informations about the user class for use in other classes
+     * @see Database
+     */
+    @Override
+    public String toDatabase(){
+        return "AccID:" + this.getId() + "|AccName:" + this.getName() + "|AccEmail:" + this.getEmail() + "|AccPassword:" + this.getPassword() + "|AccType:" + this.getType() + "|AccPhone" + this.getphoneNumber() + "|AccAddr" + this.getaddress() + "|AccWishlist:" + this.getWishlist().getItems() + "|AccCart:" + this.getCart().getItems() + "\n";
+    }
+
+    /**
      * to string for the shopper class
      * @returns the shopper information 
      */

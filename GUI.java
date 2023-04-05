@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
 
 
 // Class to handle all GUI interactions, note this class implements the actionlistener class
@@ -17,7 +18,9 @@ public class GUI implements ActionListener{
     private Database db;
     private ShopResults shop_results;
 
-    private String[] userInfo;
+    private Shopper sessionShopper;
+    private Seller sessionSeller;
+    private Admin seessionAdmin;
 
     // buttons on login page
     private JButton login_button;
@@ -29,6 +32,10 @@ public class GUI implements ActionListener{
 
     // buttons/components on shopping page
     private JButton shop_search_button;
+
+    // buttons/components on shop results page
+    private JButton shop_result_back_button;
+    private JButton shop_result_review_button;
     
     public GUI(){
         // intialize an instance of the database
@@ -72,7 +79,9 @@ public class GUI implements ActionListener{
         //grab all the buttons on the shopping homepage
         shop_search_button = shop.getSearchButton();
 
-        // add the buttons to the `action listener`, a built-in class/interface that listens for an action to take place, which we can manipulate into taking a specific action
+        // ADD ALL NECESSARY BUTTONS TO ACTION LISTENER...
+        // a built-in class/interface that listens for an action to take place, which we can manipulate into taking a specific action
+
         // login page
         login_button.addActionListener(this);
         login_register_button.addActionListener(this);
@@ -100,7 +109,9 @@ public class GUI implements ActionListener{
                 if (db.authenticateUsers(login.getEmail(), login.getPass(), login.getSelection()) != null) {
                     // grabs the user's information
                     String userInfoLine = db.fromUsers(Integer.parseInt(db.authenticateUsers(login.getEmail(), login.getPass(), login.getSelection())));
-                    userInfo = userInfoLine.split("\\|");
+
+                    Map<String, String> userMap = db.lineToMap(userInfoLine);
+                    sessionShopper = db.mapToShopper(userMap);
 
                     if (login.getSelection() == "Shopper"){
                         showShop();
@@ -136,15 +147,14 @@ public class GUI implements ActionListener{
                         Shopper s = new Shopper("", "", register.getPass(), register.getEmail());
                         db.writeUsers(s);
                         
-                        // updates the userInfo for the current session
-                        userInfo = (s.toDatabase()).split("\\|");
+                        // updates the user info for the current session
+                        sessionShopper = s;
                         showShop();
                     }
                 }else {
                     JOptionPane.showMessageDialog(register, "You may have not entered in your details in correctly or there might already an email under this account, please try again.", "Oops!", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IOException register_e) {
-                // TODO Auto-generated catch block
                 register_e.printStackTrace();
             }
         }
@@ -156,6 +166,22 @@ public class GUI implements ActionListener{
                 showResultPage(shop.getQueryString());
             }
         }
+
+        // shop results page
+
+        // if we want to go back to the shopping home page
+        if (e.getSource() == shop_result_back_button){
+            showShop();
+        }
+
+        // if we want to write a review
+        if (e.getSource() == shop_result_review_button){
+
+        }
+    }
+
+    public GUI getSelf(){
+        return this;
     }
 
     // switches to the login screen
@@ -168,16 +194,24 @@ public class GUI implements ActionListener{
         pageManager.show(pageLoadout, "register");
     }
 
-    // switches to the shopping screen
+    // switches to the shopping home screen
     public void showShop(){
         pageManager.show(pageLoadout, "shop");
     }
 
     public void showResultPage(String query){
-        ShopResults results;
         try {
-            results = new ShopResults(db.searchProducts(query));
-            pageLoadout.add(results, "shop results");
+            shop_results = new ShopResults(db.searchProducts(query));
+            pageLoadout.add(shop_results, "shop results");
+
+            shop_results.pageInit();
+
+            // grab buttons from shop result page
+            shop_result_back_button = shop_results.getBackButton();
+            shop_result_back_button.addActionListener(this);
+
+            shop_result_review_button = shop_results.getReviewButton();
+            shop_result_review_button.addActionListener(this);
 
             pageManager.show(pageLoadout, "shop results");
         } catch (FileNotFoundException res_e) {
