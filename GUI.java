@@ -17,6 +17,7 @@ public class GUI implements ActionListener{
     private RegisterPage register;
     private Database db;
     private ShopResults shop_results;
+    private ShopperDetails shopper_profile;
 
     private Shopper sessionShopper;
     private Seller sessionSeller;
@@ -32,14 +33,18 @@ public class GUI implements ActionListener{
 
     // buttons/components on shopping page
     private JButton shop_search_button;
+    private JButton shop_account_button;
 
     // buttons/components on shop results page
     private JButton shop_result_back_button;
     private JButton shop_result_review_button;
+
+    // buttons/components on the account page
+    private JButton shopper_acc_back_button;
     
     public GUI(){
         // intialize an instance of the database
-        db = new Database("database");
+        db = new Database("./database");
 
         // set a base frame/canvas to load/unload all the pages
         window = new JFrame("GNRC SHOE STORE");
@@ -78,6 +83,7 @@ public class GUI implements ActionListener{
 
         //grab all the buttons on the shopping homepage
         shop_search_button = shop.getSearchButton();
+        shop_account_button = shop.getAccButton();
 
         // ADD ALL NECESSARY BUTTONS TO ACTION LISTENER...
         // a built-in class/interface that listens for an action to take place, which we can manipulate into taking a specific action
@@ -92,6 +98,7 @@ public class GUI implements ActionListener{
 
         // shopping page
         shop_search_button.addActionListener(this);
+        shop_account_button.addActionListener(this);
         
         // display the window
         window.setVisible(true);
@@ -106,11 +113,14 @@ public class GUI implements ActionListener{
         if (e.getSource() == login_button){
             try {
                 // checks if the fields, corresponds to a current user in the database
-                if (db.authenticateUsers(login.getEmail(), login.getPass(), login.getSelection()) != null) {
+                String userID = db.authenticateUsers(login.getEmail(), login.getPass(), login.getSelection());
+
+                if (userID != null) {
                     // grabs the user's information
-                    String userInfoLine = db.fromUsers(Integer.parseInt(db.authenticateUsers(login.getEmail(), login.getPass(), login.getSelection())));
+                    String userInfoLine = db.fromUsers(Integer.parseInt(userID));
 
                     Map<String, String> userMap = db.lineToMap(userInfoLine);
+                    
                     sessionShopper = db.mapToShopper(userMap);
 
                     if (login.getSelection() == "Shopper"){
@@ -158,7 +168,9 @@ public class GUI implements ActionListener{
                 register_e.printStackTrace();
             }
         }
-
+        
+        // SHOPPING PAGE INTERACTIONS
+        // if we click on the search button
         if (e.getSource() == shop_search_button){
             if (shop.getQueryString().equals("")){
                 JOptionPane.showMessageDialog(register, "Please enter a key word or search term in the search bar to continue.", "Oops!", JOptionPane.ERROR_MESSAGE);
@@ -167,16 +179,20 @@ public class GUI implements ActionListener{
             }
         }
 
-        // shop results page
+        // if we click on the account button
+        if (e.getSource() == shop_account_button){
+            showShopper(sessionShopper);
+        }
 
+        // SHOP RESULTS PAGE INTERACTIONS
         // if we want to go back to the shopping home page
         if (e.getSource() == shop_result_back_button){
             showShop();
         }
 
-        // if we want to write a review
-        if (e.getSource() == shop_result_review_button){
-
+        // SHOPPER PROFILE INTERACTIONS
+        if (e.getSource() == shopper_acc_back_button){
+            showShop();
         }
     }
 
@@ -199,9 +215,22 @@ public class GUI implements ActionListener{
         pageManager.show(pageLoadout, "shop");
     }
 
+    // switches to shopper profile screen
+    public void showShopper(Shopper s){
+        shopper_profile = new ShopperDetails(db, s);
+        pageLoadout.add(shopper_profile, "shopper profile");
+
+        shopper_profile.pageInit();
+
+        shopper_acc_back_button = shopper_profile.getBackButton();
+        shopper_acc_back_button.addActionListener(this);
+
+        pageManager.show(pageLoadout, "shopper profile");
+    }
+
     public void showResultPage(String query){
         try {
-            shop_results = new ShopResults(db.searchProducts(query));
+            shop_results = new ShopResults(db, db.searchProducts(query), sessionShopper);
             pageLoadout.add(shop_results, "shop results");
 
             shop_results.pageInit();

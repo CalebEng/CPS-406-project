@@ -283,6 +283,7 @@ import java.util.*;
     public void deleteUser(int id) throws IOException {
         File file = new File(basePath + "/dbUsers.txt");
         File tempFile = new File("tempFile.txt");
+        
         BufferedReader reader = new BufferedReader(new FileReader(file));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         String currentLine;
@@ -290,14 +291,15 @@ import java.util.*;
         while ((currentLine = reader.readLine()) != null) {
             String[] parts = currentLine.split("\\|");
             int lineId = Integer.parseInt(parts[0].substring(6));
-            
+
             if (lineId != id) {
                 writer.write(currentLine + "\n");
             }
         }
-    
+
         writer.close();
         reader.close();
+
         file.delete();
         tempFile.renameTo(file);
     }
@@ -534,34 +536,30 @@ import java.util.*;
      * authenticates email and password of user
      * @param email email string
      * @param pass password string
-     * @return true when email and password match, false when they don't
+     * @return the account id of the user
      */
     public String authenticateUsers(String email, String pass, String type) throws IOException {
         File file = new File(basePath + "/dbUsers.txt");
-        int inFile = 0;
-        Scanner scanner = new Scanner(file);
-    
-        while (scanner.hasNextLine()) {
-            
-            String line = scanner.nextLine();
-    
-            String[] parts = line.split("\\|");
-            String accID = (parts[0].substring(6));
-            String accEmail = (parts[2].substring(9));
-            String accPass = (parts[3].substring(12));
-            String accType = (parts[4].substring(8));
 
-            if (accEmail.equals(email) && accPass.equals(pass) && accType.equals(type)) {
-               return accID;
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                
+                String line = scanner.nextLine();
+   
+                String[] parts = line.split("\\|");
+                String accID = (parts[0].substring(6));
+                String accEmail = (parts[2].substring(9));
+                String accPass = (parts[3].substring(12));
+                String accType = (parts[4].substring(8));
+
+                if (accEmail.equals(email) && accPass.equals(pass) && accType.equals(type)) {
+                   return accID;
+                }
             }
 
-            
-   
+            scanner.close();
         }
-        scanner.close();
-
-        return null;
     
-        
+        return null;
     }
 }

@@ -75,6 +75,10 @@ public class ShoppingPage extends JPanel {
         return this.search_button;
     }
 
+    public JButton getAccButton(){
+        return this.account_button;
+    }
+
     // gets the search query entered by the user
     public String getQueryString(){
         return this.search_bar.getText();

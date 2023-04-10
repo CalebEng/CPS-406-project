@@ -4,7 +4,7 @@ import java.util.*;
 public class DatabaseTest {
 
     public static void main(String[] args) {
-        Database db = new Database("C:/Users/mahad/Desktop/CPS406Assign");
+        Database db = new Database("./database");
         Shoe shoe = new Shoe(2, "Adidas Superstar", 80.00, 8, "Classic casual shoes", "Casual", "US 8", "White", "Adidas", "Jane Doe");
         User user = new User("Jane", "jane@example.com", "password", "shopper");
 
@@ -100,7 +100,7 @@ public class DatabaseTest {
             cart.addItem(shoe, 2);
             Order order = new Order(cart);
             order.setTotal(cart.getTotalCost());
-            File file = new File("C:/Users/mahad/Desktop/CPS406Assign" + "/dbOrders.txt");
+            File file = new File("./database" + "/dbOrders.txt");
 
             db.writeOrders(order);
             db.clearOrders();
@@ -125,7 +125,7 @@ public class DatabaseTest {
      */
     public static void testClearProducts(Database db, Shoe shoe) {
         try {
-            File file = new File("C:/Users/mahad/Desktop/CPS406Assign" + "/dbOrders.txt");
+            File file = new File("./database" + "/dbOrders.txt");
             db.writeProducts(shoe);
             db.clearProducts();
             if (file.length() == 0) {
@@ -148,7 +148,7 @@ public class DatabaseTest {
      */
     public static void testClearUsers(Database db, User user) {
         try {
-            File file = new File("C:/Users/mahad/Desktop/CPS406Assign" + "/dbOrders.txt");
+            File file = new File("./database" + "/dbOrders.txt");
             db.writeUsers(user);
             db.clearUsers();
             if (file.length() == 0) {
@@ -251,7 +251,7 @@ public class DatabaseTest {
             cart.addItem(shoe, 2);
             Order order = new Order(cart);
             order.setTotal(cart.getTotalCost());
-            File file = new File("C:/Users/mahad/Desktop/CPS406Assign" + "/dbOrders.txt");
+            File file = new File("./database" + "/dbOrders.txt");
 
             db.writeOrders(order);
     

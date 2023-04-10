@@ -259,7 +259,7 @@ public class Shopper extends User{
      */
     @Override
     public String toDatabase(){
-        return "AccID:" + this.getId() + "|AccName:" + this.getName() + "|AccEmail:" + this.getEmail() + "|AccPassword:" + this.getPassword() + "|AccType:" + this.getType() + "|AccPhone" + this.getphoneNumber() + "|AccAddr" + this.getaddress() + "|AccWishlist:" + this.getWishlist().getItems() + "|AccCart:" + this.getCart().getItems() + "\n";
+        return "AccID:" + this.getId() + "|AccName:" + this.getName() + "|AccEmail:" + this.getEmail() + "|AccPassword:" + this.getPassword() + "|AccType:" + this.getType() + "|AccPhone:" + this.getphoneNumber() + "|AccAddr:" + this.getaddress() + "|AccWishlist:" + this.getWishlist().getItems() + "|AccCart:" + this.getCart().getItems() + "\n";
     }
 
     /**

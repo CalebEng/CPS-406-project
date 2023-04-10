@@ -13,6 +13,7 @@ import java.util.*;
 public class ShopResults extends JPanel implements ListSelectionListener, ActionListener{
     private Database db;
     private ArrayList<Shoe> results;
+    private Shopper shopper;
     private Shoe[] result_list;
     private JList<Shoe> product_list;
     private DefaultListModel<Shoe> product_ListModel; // a built-in class that allows us to manipulate our Jist
@@ -43,9 +44,11 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
     private JButton review_button;
     private JButton back_button;
 
-    public ShopResults(ArrayList<Shoe> shoes){
+    public ShopResults(Database data, ArrayList<Shoe> shoes, Shopper sh){
         this.results = shoes;
-        db = new Database("./database");
+        this.db = data;
+        this.shopper = sh;
+
         result_list = results.toArray(new Shoe[0]); // converting the arraylist of products into a regular list for the JList
 
         // setting up side menu
@@ -84,6 +87,8 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
         // ADD BUTTONS TO ACTION LISTENER SO THEY DO SOMETHING
         sort_button.addActionListener(this);
         review_button.addActionListener(this);
+        add_to_cart_button.addActionListener(this);
+        add_to_wishlist_button.addActionListener(this);
 
         // set up list, using a default list model which handles all the operations within a JList
         product_ListModel = new DefaultListModel<Shoe>(); 
@@ -258,8 +263,8 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
 
                     try {
                         // overwrites, the current save of the product within the database
-                        db.deleteProduct(s.getId());
-                        db.writeProducts(s);
+                        this.db.deleteProduct(s.getId());
+                        this.db.writeProducts(s);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -271,5 +276,39 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
                 JOptionPane.showMessageDialog(product_info, "Your input was not a valid number.", "Oops!", JOptionPane.ERROR_MESSAGE);
             }
         }
+
+        if (e.getSource() == add_to_cart_button){
+            Shoe s = product_list.getSelectedValue();
+
+            if (this.shopper.getCart().getItems().get(s.getId()) != null){
+                JOptionPane.showMessageDialog(product_info, "This item is already in your cart!", "Oops!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String itemQuantity = (String)JOptionPane.showInputDialog(product_info, "How much of this item would you like to add?", "ADD TO CART", JOptionPane.QUESTION_MESSAGE);
+
+                try {
+                    int q = Integer.parseInt(itemQuantity);
+
+                    if (q > s.getStockCount()){
+                        JOptionPane.showMessageDialog(product_info, "The quantity specified exceeds the amount in stock.", "Oops!", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        this.shopper.addToCart(s, q);
+
+                        db.deleteUser(this.shopper.getId());
+                        db.writeUsers(shopper);
+                    }
+
+                } catch (NullPointerException e1) {
+                    JOptionPane.showMessageDialog(product_info, "You cannot leave the rating empty...", "Oops!", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException e2){
+                    JOptionPane.showMessageDialog(product_info, "Your input was not a valid number.", "Oops!", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException i1) {
+                    i1.printStackTrace();
+                }
+            }
+        }
+
+        if (e.getSource() == add_to_wishlist_button){
+        }
+
     }
 }

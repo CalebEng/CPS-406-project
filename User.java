@@ -80,6 +80,9 @@ public class User {
     public void setHasAccount(boolean tf){
         this.hasAccount =tf;
     }
+    public void setName(String newName){
+        this.name = newName;
+    }
 
     //other class methods:
     /**
