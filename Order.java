@@ -76,6 +76,10 @@ public class Order {
         return orderId;
     }
 
+    public void setID(int id){
+        this.orderId = id;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -100,8 +104,16 @@ public class Order {
         return orderDate;
     }
 
+    public void setOrderDate(Date date){
+        this.orderDate = date;
+    }
+
     public Date getEstimatedDate() {
         return estimatedDate;
+    }
+
+    public void setEstimatedDate(Date estDate){
+        this.estimatedDate = estDate;
     }
 
     public Cart getCart() {
@@ -114,11 +126,11 @@ public class Order {
      * @return
     */
     public String toDatabase() {
-        return "OrderID:" + orderId + "|Status:" + status + "|Total:" + total + "|OrderDate:" + orderDate.getTime() + "|EstimatedDate:" + estimatedDate.getTime() + "\n";
+        return "OrderID:" + orderId + "|Status:" + status + "|Total:" + total + "|OrderDate:" + orderDate.getTime() + "|EstimatedDate:" + estimatedDate.getTime() + "|CartItems:" + cart.getItems() + "\n";
     }
 
     public String toString() {
-        return "Order ID: " + orderId + ", Total Cost: $" + cart.getTotalCost();
+        return "Order ID=" + orderId;
     }
     
     

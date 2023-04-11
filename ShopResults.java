@@ -58,7 +58,7 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
         side_menu = new JPanel(side_menu_layout);
         side_menu.setBorder(new EmptyBorder(50, 50, 50, 50));
 
-        sort_button = new JButton("SORT BY PRICE (asc)");
+        sort_button = new JButton("SORT BY PRICE (asc.)");
         sort_button.setBackground(Color.LIGHT_GRAY);
         sort_button.setFont(new Font("Sans-Serif", Font.BOLD, 20));
 
@@ -292,13 +292,18 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
                         JOptionPane.showMessageDialog(product_info, "The quantity specified exceeds the amount in stock.", "Oops!", JOptionPane.ERROR_MESSAGE);
                     } else {
                         this.shopper.addToCart(s, q);
+                        s.removeStock(q);
+
+                        // overwriting product with new stock
+                        db.deleteProduct(s.getId());
+                        db.writeProducts(s);
 
                         db.deleteUser(this.shopper.getId());
                         db.writeUsers(shopper);
+
+                        setProductInfo(Integer.toString(s.getId()), s.getName(), Double.toString(s.getPrice()), Integer.toString(s.getStockCount()), s.getDescription(), s.getType(), s.getSize(), s.getColour(), s.getBrand(), s.getAddedBy(), s.getReviews());
                     }
 
-                } catch (NullPointerException e1) {
-                    JOptionPane.showMessageDialog(product_info, "You cannot leave the rating empty...", "Oops!", JOptionPane.ERROR_MESSAGE);
                 } catch (NumberFormatException e2){
                     JOptionPane.showMessageDialog(product_info, "Your input was not a valid number.", "Oops!", JOptionPane.ERROR_MESSAGE);
                 } catch (IOException i1) {
@@ -308,6 +313,31 @@ public class ShopResults extends JPanel implements ListSelectionListener, Action
         }
 
         if (e.getSource() == add_to_wishlist_button){
+            Shoe s = product_list.getSelectedValue();
+
+            if (this.shopper.getWishlist().getItems().get(s.getId()) != null){
+                JOptionPane.showMessageDialog(product_info, "This item is already in your wishlist!", "Oops!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String itemQuantity = (String)JOptionPane.showInputDialog(product_info, "How much of this item would you like to add?", "ADD TO CART", JOptionPane.QUESTION_MESSAGE);
+
+                try {
+                    int q = Integer.parseInt(itemQuantity);
+
+                    if (q > s.getStockCount()){
+                        JOptionPane.showMessageDialog(product_info, "The quantity specified exceeds the amount in stock.", "Oops!", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        this.shopper.addToWishlist(s, q);
+
+                        db.deleteUser(this.shopper.getId());
+                        db.writeUsers(shopper);
+                    }
+
+                } catch (NumberFormatException e2){
+                    JOptionPane.showMessageDialog(product_info, "Your input was not a valid number.", "Oops!", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException i1) {
+                    i1.printStackTrace();
+                }
+            }
         }
 
     }

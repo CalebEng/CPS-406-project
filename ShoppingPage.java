@@ -9,6 +9,7 @@ public class ShoppingPage extends JPanel {
     private JButton cart_button;
     private JButton wishlist_button;
     private JButton orders_button;
+    private JButton logout_button;
 
     public ShoppingPage(){
         // set/configures properties of all components on the page
@@ -30,6 +31,12 @@ public class ShoppingPage extends JPanel {
         welcome_msg.setFont(new Font("Sans-Serif", Font.BOLD, 40));
         
         // ALL BUTTONS
+
+        //logout button properties
+        logout_button = new JButton("< LOGOUT");
+        logout_button.setBounds(1135, 25, 120, 30);
+        logout_button.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        logout_button.setBackground(Color.LIGHT_GRAY);
 
         // view account button properties
         account_button = new JButton("VIEW YOUR ACCOUNT");
@@ -77,6 +84,22 @@ public class ShoppingPage extends JPanel {
 
     public JButton getAccButton(){
         return this.account_button;
+    }
+
+    public JButton getCartButton(){
+        return this.cart_button;
+    }
+
+    public JButton getWishlistButton(){
+        return this.wishlist_button;
+    }
+
+    public JButton getOrdersButton(){
+        return this.orders_button;
+    }
+
+    public JButton getLogoutButton(){
+        return this.logout_button;
     }
 
     // gets the search query entered by the user

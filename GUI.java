@@ -18,6 +18,7 @@ public class GUI implements ActionListener{
     private Database db;
     private ShopResults shop_results;
     private ShopperDetails shopper_profile;
+    private CartPage shopper_cart;
 
     private Shopper sessionShopper;
     private Seller sessionSeller;
@@ -34,6 +35,10 @@ public class GUI implements ActionListener{
     // buttons/components on shopping page
     private JButton shop_search_button;
     private JButton shop_account_button;
+    private JButton shop_cart_button;
+    private JButton shop_wishlist_button;
+    private JButton shop_orders_button;
+    private JButton shop_logout_button;
 
     // buttons/components on shop results page
     private JButton shop_result_back_button;
@@ -82,8 +87,12 @@ public class GUI implements ActionListener{
         register_back_button = register.getBackButton();
 
         //grab all the buttons on the shopping homepage
+        shop_logout_button = shop.getLogoutButton();
         shop_search_button = shop.getSearchButton();
         shop_account_button = shop.getAccButton();
+        shop_cart_button = shop.getCartButton();
+        shop_wishlist_button = shop.getWishlistButton();
+        shop_orders_button = shop.getOrdersButton();
 
         // ADD ALL NECESSARY BUTTONS TO ACTION LISTENER...
         // a built-in class/interface that listens for an action to take place, which we can manipulate into taking a specific action
@@ -97,8 +106,12 @@ public class GUI implements ActionListener{
         register_back_button.addActionListener(this);
 
         // shopping page
+        shop_logout_button.addActionListener(this);
         shop_search_button.addActionListener(this);
         shop_account_button.addActionListener(this);
+        shop_cart_button.addActionListener(this);
+        shop_wishlist_button.addActionListener(this);
+        shop_orders_button.addActionListener(this);
         
         // display the window
         window.setVisible(true);
@@ -119,7 +132,11 @@ public class GUI implements ActionListener{
                     // grabs the user's information
                     String userInfoLine = db.fromUsers(Integer.parseInt(userID));
 
+                    System.out.println(userInfoLine);
+
                     Map<String, String> userMap = db.lineToMap(userInfoLine);
+
+                    System.out.println(userMap);
                     
                     sessionShopper = db.mapToShopper(userMap);
 
@@ -184,6 +201,10 @@ public class GUI implements ActionListener{
             showShopper(sessionShopper);
         }
 
+        if (e.getSource() == shop_cart_button){
+            showShopCart(sessionShopper);
+        }
+
         // SHOP RESULTS PAGE INTERACTIONS
         // if we want to go back to the shopping home page
         if (e.getSource() == shop_result_back_button){
@@ -213,6 +234,23 @@ public class GUI implements ActionListener{
     // switches to the shopping home screen
     public void showShop(){
         pageManager.show(pageLoadout, "shop");
+    }
+
+    public void showShopCart(Shopper s){
+        shopper_cart = new CartPage(db, s);
+        pageLoadout.add(shopper_cart, "shopper cart");
+
+        shopper_cart.pageInit();
+
+        pageManager.show(pageLoadout, "shopper cart");
+    }
+
+    public void showShopWish(){
+
+    }
+
+    public void showShopOrders(){
+
     }
 
     // switches to shopper profile screen

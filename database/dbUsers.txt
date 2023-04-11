@@ -1,0 +1,4 @@
+AccID:93|AccName:Joe Mama|AccEmail:joe@mama.com|AccPassword:jojo|AccType:Shopper|AccWishlist:{}|AccCart:{}|AccOrders:[]
+AccID:85|AccName:|AccEmail:test@t.com|AccPassword:test|AccType:Shopper|AccPhone:|AccAddr:|AccWishlist:{}|AccCart:{}|AccOrders:[]
+AccID:81|AccName:big al|AccEmail:abcd|AccPassword:1234|AccType:Shopper|AccPhone:928-979-2334|AccAddr:|AccWishlist:{}|AccCart:{}|AccOrders:[]
+AccID:8|AccName:t|AccEmail:t|AccPassword:t|AccType:Shopper|AccPhone:406-230-3003|AccAddr:392 del torro ave|AccWishlist:{}|AccCart:{3=5, 4=5}|AccOrders:[Order ID=5830, Order ID=5398]

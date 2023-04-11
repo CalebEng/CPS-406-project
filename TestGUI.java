@@ -7,9 +7,10 @@ IMPORTANT NOTE: PLEASE NOTE THAT THE GUI'S FUNCTIONALITY MAY NOT BE REPRESENTATI
 */
 
 public class TestGUI {
-    public static void main (String[]args){    
-        /*
-        Database db = new Database("./database");    
+    public static void main (String[]args){  
+        /*   
+        DO NOT TOUCH THIS CODE PLEASE.
+
         Shoe shoe = new Shoe(1, "Reebok Shoe", 80.00, 10, "Not Jordan's, but good enough.", "Athletic", "9.5", "White", "Reebok", "John");
         Shoe shoe2 = new Shoe(3, "Nike Air Force 1", 150.00, 10, "Not Jordan's, but good enough.", "Athletic", "9.5", "White", "Nike", "John");
         shoe.addReview(new Review(5.0, "these are seriously some nice shoes"));
@@ -18,14 +19,11 @@ public class TestGUI {
         testShopper.addToCart(shoe, 2);
         testShopper.addToCart(shoe2, 3);
 
-        try {
-            db.writeUsers(testShopper);
-            String test = db.fromUsers(testShopper.getId());
-            System.out.println(db.lineToMap(test));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Shoe s3 = new Shoe(4, "trash", 0, 7, "trash", "trash", "nonexistent", "poop", "none", "dumpster");
+        testShopper.addToCart(s3, 3);
+
+        System.out.println(testShopper.getCart().display());
+        System.out.println(testShopper.toDatabase());
         */
 
         // since the GUI does not have any formal test cases, please refer to the document. 

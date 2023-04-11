@@ -92,6 +92,11 @@ public class Shopper extends User{
         //cart and whishlist to be implemented
         this.shopperCart = new Cart();
         this.wishlist = new Wishlist(true);
+
+        this.shopperOrders = new ArrayList<Order>();
+        this.orderList = new ArrayList<CurrentOrders>();
+        this.shoppReviews = new ArrayList<Review>();
+        this.pastOrderList = new ArrayList<PastOrders>();
     }
 
 
@@ -203,10 +208,13 @@ public class Shopper extends User{
      */
     public Order placeOrder(){
         Order temp = new Order(this.shopperCart);
-        shopperOrders.add(temp);
-        this.shopperCart = new Cart();
-        return temp;
 
+        System.out.println(temp);
+
+        this.shopperOrders.add(temp);
+        this.shopperCart = new Cart();
+
+        return temp;
     }
 
     /**
@@ -259,7 +267,7 @@ public class Shopper extends User{
      */
     @Override
     public String toDatabase(){
-        return "AccID:" + this.getId() + "|AccName:" + this.getName() + "|AccEmail:" + this.getEmail() + "|AccPassword:" + this.getPassword() + "|AccType:" + this.getType() + "|AccPhone:" + this.getphoneNumber() + "|AccAddr:" + this.getaddress() + "|AccWishlist:" + this.getWishlist().getItems() + "|AccCart:" + this.getCart().getItems() + "\n";
+        return "AccID:" + this.getId() + "|AccName:" + this.getName() + "|AccEmail:" + this.getEmail() + "|AccPassword:" + this.getPassword() + "|AccType:" + this.getType() + "|AccPhone:" + this.getphoneNumber() + "|AccAddr:" + this.getaddress() + "|AccWishlist:" + this.getWishlist().getItems() + "|AccCart:" + this.getCart().getItems() + "|AccOrders:" + this.getOrder() + "\n";
     }
 
     /**

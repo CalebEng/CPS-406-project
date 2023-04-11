@@ -446,6 +446,7 @@ import java.util.*;
         String pass = map.get("AccPassword");
         String phone = map.get("AccPhone");
         String address = map.get("AccAddr");
+        String stringOrders = map.get("AccOrders");
 
         if (address == null){
             if (phone == null){
@@ -457,16 +458,87 @@ import java.util.*;
             shopper = new Shopper(name, address, phone, pass, email);
         }
 
+        // grabbing the order from the collection of orders, and coverting it into an order object that's in our shopper instance
+        if (!stringOrders.equals("[]")){
+            String[] allOrders = stringOrders.substring(1, stringOrders.length()-1).split(",");
+
+            int orderIndex = 0; // to track the position of the order we're setting up
+
+            for (String o:allOrders){
+                int orderID = Integer.parseInt(o.split("=")[1].trim());
+
+                try {
+                    String orderLine = fromOrders(orderID);
+                    Map<String, String> orderMap = lineToMap(orderLine);
+
+                    System.out.println(orderMap);
+                    
+                    String cartItems = orderMap.get("CartItems");
+                    String orderStatus = orderMap.get("Status");
+                    String orderDate = orderMap.get("OrderDate");
+                    String orderEst = orderMap.get("EstimatedDate");
+
+                    String[] allProds = cartItems.substring(1, cartItems.length()-1).split(",");
+
+                    for (String p:allProds){
+                        int prodID_c = Integer.parseInt(p.split("=")[0].trim());
+                        int prodQ_c = Integer.parseInt(p.split("=")[1]);
+        
+                        //System.out.println(p);
+                        //System.out.println(prodID_c);
+                        //System.out.println(prodQ_c);
+        
+                        try {
+                            String shoeString = fromProducts(prodID_c);
+                            
+                            //System.out.println(shoeString);
+        
+                            // just in-case the product no longer exists
+                            if (!shoeString.equals("")){
+        
+                                Map<String, String> shoeMap = lineToMap(shoeString);
+                                Shoe s = mapToShoe(shoeMap);
+            
+                                shopper.addToCart(s, prodQ_c);
+                            }
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // take the cart from the order, and place it as a 'new' order
+                    shopper.placeOrder();
+                    
+                    // instead of everything being randomly/newly generated, we simply take the properties from the database
+                    shopper.getOrder().get(orderIndex).setID(orderID);
+                    shopper.getOrder().get(orderIndex).setStatus(orderStatus);
+                    shopper.getOrder().get(orderIndex).setOrderDate(new Date(Long.parseLong(orderDate)));
+                    shopper.getOrder().get(orderIndex).setEstimatedDate(new Date(Long.parseLong(orderEst)));
+
+                    orderIndex++;
+                    
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         //converting cart from text format to shoe objects to be added to the instance cart
         if (!stringCart.equals("{}")){
             String[] allProds = stringCart.substring(1, stringCart.length()-1).split(",");
 
             for (String p:allProds){
-                int prodID_c = Integer.parseInt(p.split("=")[0]);
+                int prodID_c = Integer.parseInt(p.split("=")[0].trim());
                 int prodQ_c = Integer.parseInt(p.split("=")[1]);
 
+                System.out.println(p);
+                System.out.println(prodID_c);
+                System.out.println(prodQ_c);
+
                 try {
-                    String shoeString = fromOrders(prodID_c);
+                    String shoeString = fromProducts(prodID_c);
+                    
+                    System.out.println(shoeString);
 
                     // just in-case the product no longer exists
                     if (!shoeString.equals("")){
@@ -487,14 +559,18 @@ import java.util.*;
             String[] allProds = stringWish.substring(1, stringWish.length()-1).split(",");
 
             for (String p:allProds){
-                int prodID_w = Integer.parseInt(p.split("=")[0]);
+                int prodID_w = Integer.parseInt(p.split("=")[0].trim());
                 int prodQ_w = Integer.parseInt(p.split("=")[1]);
+
+                System.out.println(prodID_w);
 
                 try {
                     String shoeString = fromOrders(prodID_w);
 
+                    System.out.println(shoeString); //
+
                     // just in-case the product no longer exists
-                    if (!shoeString.equals("")){
+                    if (shoeString != null){
 
                         Map<String, String> shoeMap = lineToMap(shoeString);
                         Shoe s = mapToShoe(shoeMap);
@@ -509,6 +585,41 @@ import java.util.*;
         
         shopper.setID(Integer.parseInt(id)); // replaces randomly generated id
         return shopper;
+    }
+
+    // converts the string representation of a cart, to an actual cart instance
+    public Cart lineToCart(String stringCart){
+        Cart c = new Cart();
+
+        if (!stringCart.equals("{}")){
+            String[] allProds = stringCart.substring(1, stringCart.length()-1).split(",");
+
+            for (String p:allProds){
+                int prodID_c = Integer.parseInt(p.split("=")[0]);
+                int prodQ_c = Integer.parseInt(p.split("=")[1]);
+
+                try {
+                    String shoeString = fromProducts(prodID_c);
+                    
+                    System.out.println(shoeString);
+
+                    // just in-case the product no longer exists
+                    if (!shoeString.equals("")){
+
+                        Map<String, String> shoeMap = lineToMap(shoeString);
+                        Shoe s = mapToShoe(shoeMap);
+
+                        c.addItem(s, prodQ_c);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return c;
+        }
+        
+        return null;
     }
 
 
