@@ -415,7 +415,6 @@ import java.util.*;
             String[] allReviews = reviewString.substring(1, reviewString.length()-1).split(","); // removes square brackets from the string
 
             for (String r:allReviews){
-                //System.out.println(r);
                 String[] review = r.substring(1, r.length()-1).split("&"); // removes the outer (), and separates the rating and comment
                 Double rating = Double.parseDouble(review[0].split("=")[1]); // extracts the rating from the review string
                 String com = review[1].split("=")[1]; // extracts the comment from the review string
@@ -470,8 +469,6 @@ import java.util.*;
                 try {
                     String orderLine = fromOrders(orderID);
                     Map<String, String> orderMap = lineToMap(orderLine);
-
-                    System.out.println(orderMap);
                     
                     String cartItems = orderMap.get("CartItems");
                     String orderStatus = orderMap.get("Status");
@@ -484,14 +481,8 @@ import java.util.*;
                         int prodID_c = Integer.parseInt(p.split("=")[0].trim());
                         int prodQ_c = Integer.parseInt(p.split("=")[1]);
         
-                        //System.out.println(p);
-                        //System.out.println(prodID_c);
-                        //System.out.println(prodQ_c);
-        
                         try {
                             String shoeString = fromProducts(prodID_c);
-                            
-                            //System.out.println(shoeString);
         
                             // just in-case the product no longer exists
                             if (!shoeString.equals("")){
@@ -531,14 +522,8 @@ import java.util.*;
                 int prodID_c = Integer.parseInt(p.split("=")[0].trim());
                 int prodQ_c = Integer.parseInt(p.split("=")[1]);
 
-                System.out.println(p);
-                System.out.println(prodID_c);
-                System.out.println(prodQ_c);
-
                 try {
                     String shoeString = fromProducts(prodID_c);
-                    
-                    System.out.println(shoeString);
 
                     // just in-case the product no longer exists
                     if (!shoeString.equals("")){
@@ -562,12 +547,8 @@ import java.util.*;
                 int prodID_w = Integer.parseInt(p.split("=")[0].trim());
                 int prodQ_w = Integer.parseInt(p.split("=")[1]);
 
-                System.out.println(prodID_w);
-
                 try {
                     String shoeString = fromOrders(prodID_w);
-
-                    System.out.println(shoeString); //
 
                     // just in-case the product no longer exists
                     if (shoeString != null){
@@ -600,8 +581,6 @@ import java.util.*;
 
                 try {
                     String shoeString = fromProducts(prodID_c);
-                    
-                    System.out.println(shoeString);
 
                     // just in-case the product no longer exists
                     if (!shoeString.equals("")){

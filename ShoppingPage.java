@@ -35,7 +35,7 @@ public class ShoppingPage extends JPanel {
         //logout button properties
         logout_button = new JButton("< LOGOUT");
         logout_button.setBounds(1135, 25, 120, 30);
-        logout_button.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        logout_button.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         logout_button.setBackground(Color.LIGHT_GRAY);
 
         // view account button properties
@@ -76,6 +76,7 @@ public class ShoppingPage extends JPanel {
         add(cart_button);
         add(wishlist_button);
         add(orders_button);
+        add(logout_button);
     }
 
     public JButton getSearchButton(){

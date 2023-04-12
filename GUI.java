@@ -19,6 +19,9 @@ public class GUI implements ActionListener{
     private ShopResults shop_results;
     private ShopperDetails shopper_profile;
     private CartPage shopper_cart;
+    private WishlistPage shopper_wish;
+    private CheckoutPage shopper_checkout;
+    private OrderPage shopper_orders;
 
     private Shopper sessionShopper;
     private Seller sessionSeller;
@@ -46,6 +49,20 @@ public class GUI implements ActionListener{
 
     // buttons/components on the account page
     private JButton shopper_acc_back_button;
+
+    // buttons/components on the cart page
+    private JButton shopper_cart_back_button;
+    private JButton shopper_cart_checkout_button;
+
+    // buttons/components on the checkout page
+    private JButton shopper_checkout_back_button;
+    private JButton shopper_checkout_place_order;
+
+    // buttons/components on the wishlist page
+    private JButton shopper_wish_back_button;
+
+    // buttons/components on the orders page
+    private JButton shopper_orders_back_button;
     
     public GUI(){
         // intialize an instance of the database
@@ -120,7 +137,6 @@ public class GUI implements ActionListener{
     // since the action listener is an interface, we can write our own implementation to switch to different pages when clicking a button
     @Override
     public void actionPerformed(ActionEvent e){
-        
         // LOGIN PAGE INTERACTIONS
         // if we click the login button, switch to the shopping page
         if (e.getSource() == login_button){
@@ -132,11 +148,7 @@ public class GUI implements ActionListener{
                     // grabs the user's information
                     String userInfoLine = db.fromUsers(Integer.parseInt(userID));
 
-                    System.out.println(userInfoLine);
-
                     Map<String, String> userMap = db.lineToMap(userInfoLine);
-
-                    System.out.println(userMap);
                     
                     sessionShopper = db.mapToShopper(userMap);
 
@@ -187,6 +199,10 @@ public class GUI implements ActionListener{
         }
         
         // SHOPPING PAGE INTERACTIONS
+        if (e.getSource() == shop_logout_button){
+            showLogin();
+        }
+
         // if we click on the search button
         if (e.getSource() == shop_search_button){
             if (shop.getQueryString().equals("")){
@@ -201,8 +217,19 @@ public class GUI implements ActionListener{
             showShopper(sessionShopper);
         }
 
+        // if we click on the view cart button
         if (e.getSource() == shop_cart_button){
             showShopCart(sessionShopper);
+        }
+
+        // if we click on the view wishlist button
+        if (e.getSource() == shop_wishlist_button){
+            showShopWish(sessionShopper);
+        }
+
+        // if we click on the view orders button
+        if (e.getSource() == shop_orders_button){
+            showShopOrders(sessionShopper);
         }
 
         // SHOP RESULTS PAGE INTERACTIONS
@@ -213,6 +240,47 @@ public class GUI implements ActionListener{
 
         // SHOPPER PROFILE INTERACTIONS
         if (e.getSource() == shopper_acc_back_button){
+            showShop();
+        }
+
+        // SHOPPER CART PAGE INTERACTIONS
+        if (e.getSource() == shopper_cart_back_button){
+            showShop();
+        }
+
+        if (e.getSource() == shopper_cart_checkout_button){
+            showShopCheckout(sessionShopper);
+        }
+
+        // SHOPPER CHECKOUT PAGE INTERACTIONS
+
+        if (e.getSource() == shopper_checkout_back_button){
+            showShopCart(sessionShopper);
+        }
+
+        if (e.getSource() == shopper_checkout_place_order){
+            if (shopper_checkout.allFieldsEntered()){
+                try {
+                    // create the order, and update the user
+                    db.writeOrders(this.sessionShopper.placeOrder());
+                    db.deleteUser(this.sessionShopper.getId());
+                    db.writeUsers(this.sessionShopper);
+                    showShop();
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(shopper_checkout, "Cannot place order, you have an empty field.", "Oops!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // SHOPPER WISHLIST PAGE INTERACTIONS
+        if (e.getSource() == shopper_wish_back_button){
+            showShop();
+        }
+
+        // SHOPPER ORDER PAGE INTERACTIONS
+        if (e.getSource() == shopper_orders_back_button){
             showShop();
         }
     }
@@ -240,17 +308,54 @@ public class GUI implements ActionListener{
         shopper_cart = new CartPage(db, s);
         pageLoadout.add(shopper_cart, "shopper cart");
 
+        shopper_cart_back_button = shopper_cart.getBackButton();
+        shopper_cart_back_button.addActionListener(this);
+
+        shopper_cart_checkout_button = shopper_cart.getCheckoutButton();
+        shopper_cart_checkout_button.addActionListener(this);
+
         shopper_cart.pageInit();
 
         pageManager.show(pageLoadout, "shopper cart");
     }
 
-    public void showShopWish(){
+    public void showShopCheckout(Shopper s){
+        shopper_checkout = new CheckoutPage(db, s);
+        pageLoadout.add(shopper_checkout, "checkout");
 
+        shopper_checkout_back_button = shopper_checkout.getBackButton();
+        shopper_checkout_back_button.addActionListener(this);
+
+        shopper_checkout_place_order = shopper_checkout.getOrderButton();
+        shopper_checkout_place_order.addActionListener(this);
+
+        shopper_checkout.pageInit();
+
+        pageManager.show(pageLoadout, "checkout");
     }
 
-    public void showShopOrders(){
+    public void showShopWish(Shopper s){
+        shopper_wish = new WishlistPage(db, s);
+        pageLoadout.add(shopper_wish, "shopper wishlist");
 
+        shopper_wish_back_button = shopper_wish.getBackButton();
+        shopper_wish_back_button.addActionListener(this);
+
+        shopper_wish.pageInit();
+
+        pageManager.show(pageLoadout, "shopper wishlist");
+    }
+
+    public void showShopOrders(Shopper s){
+        shopper_orders = new OrderPage(db, s);
+        pageLoadout.add(shopper_orders, "shopper orders");
+        
+        shopper_orders.pageInit();
+
+        shopper_orders_back_button = shopper_orders.getBackButton();
+        shopper_orders_back_button.addActionListener(this);
+
+        pageManager.show(pageLoadout, "shopper orders");
     }
 
     // switches to shopper profile screen

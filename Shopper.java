@@ -209,8 +209,6 @@ public class Shopper extends User{
     public Order placeOrder(){
         Order temp = new Order(this.shopperCart);
 
-        System.out.println(temp);
-
         this.shopperOrders.add(temp);
         this.shopperCart = new Cart();
 

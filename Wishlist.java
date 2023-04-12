@@ -109,18 +109,20 @@ public class Wishlist {
     /*
     * Displays the shoes and their corresponding quantities and prices in the wishlist
     */
-    public void display() {
+    public String display() {
+        String output = "";
         if (items.isEmpty()) { // if the wishlist is empty
-            System.out.println("Your wishlist is empty.");
+            output += "Your wishlist is empty.";
         } else { // if the wishlist is not empty
-            System.out.println("Your wishlist contains:");
+            output += "Your wishlist contains:\n";
             for (int shoeId : items.keySet()) { // loop through all the shoe IDs in the items map
                 int quantity = items.get(shoeId); // get the quantity of the shoe
                 double price = prices.get(shoeId); // get the price of the shoe
-                System.out.println("- Shoe ID: " + shoeId + ", Quantity: " + quantity + ", Price: $" + price); // print the shoe ID, quantity, and price
+                output += "- Shoe ID: " + shoeId + ", Quantity: " + quantity + ", Price: $" + price + "\n"; // print the shoe ID, quantity, and price
             }
-            System.out.println("Total items: " + getTotalItems()); // print the total number of items in the wishlist
+            output += "Total items: " + getTotalItems() + "\n"; // print the total number of items in the wishlist
         }
+        return output;
     }
 
         /*
