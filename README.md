@@ -1,6 +1,6 @@
 # GENERIC SHOE STORE
 
-An online shopping system application to purchase a variety of shoes and other footwear. Made using Java, and Jframe.
+An online shopping system application to purchase a variety of shoes and other footwear. Made using Java, and Java Swing.
 
 # WORKING ON THE PROJECT
 
